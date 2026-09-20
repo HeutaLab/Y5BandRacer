@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /teacher-notes.js
+Allow: /

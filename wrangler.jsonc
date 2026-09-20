@@ -1,0 +1,16 @@
+{
+  // The Constructor's Brief, served at y5bandracer.heutalab.com by its own
+  // Worker. Kept separate from the main heutalab.com Worker so a classroom page
+  // can be redeployed mid-unit without touching the site or its redirect table.
+  //
+  // Usage: npx wrangler deploy   (npx wrangler login once, if needed)
+  "name": "y5bandracer",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "none"
+  },
+  "routes": [
+    { "pattern": "y5bandracer.heutalab.com", "custom_domain": true }
+  ]
+}

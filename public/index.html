@@ -1,0 +1,1602 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Constructor's Brief · Band Car Grand Prix</title>
+<meta name="description" content="Year 5 Band Car Grand Prix. Research the rules, design your car part by part, and take every number through scrutineering. Lessons 1 and 2.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171c22" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://y5bandracer.heutalab.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Constructor's Brief · Band Car Grand Prix">
+<meta property="og:description" content="Research the rules, design your car part by part, and take every number through scrutineering.">
+<meta property="og:url" content="https://y5bandracer.heutalab.com/">
+<meta property="og:image" content="https://y5bandracer.heutalab.com/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Band Car GP">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preload" href="fonts/source-sans-3-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
+<style>
+  /* base reset. [hidden] is deliberately not !important: the print stylesheet
+     has to be able to show every panel at once. */
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+  [hidden]{display:none}
+  img{max-width:100%}
+
+  :root{
+    --ink:#12161c; --ink-2:#39424f; --ink-3:#6a7688;
+    --paper:#dde1e6; --surface:#f8f9fb; --surface-2:#eceff3;
+    --line:#c3cad3; --line-soft:#d8dde3;
+    --accent:#e8b800; --accent-ink:#161200;
+    --petrol:#0c6a70; --petrol-soft:#e2f0f0; --on-petrol:#ffffff;
+    --flag-red:#c8321f;
+    --go:#1c7a4b; --go-soft:#e2f2e9;
+    --warn:#a8650a; --warn-soft:#faf0dd;
+    --stop:#b8301c; --stop-soft:#fae7e4;
+    --shadow:0 1px 0 rgba(18,22,28,.06), 0 8px 22px -14px rgba(18,22,28,.35);
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e7ebf0; --ink-2:#b3bdca; --ink-3:#7f8b9a;
+      --paper:#0d1014; --surface:#171c22; --surface-2:#1f252d;
+      --line:#333c47; --line-soft:#272f38;
+      --accent:#f2c633; --accent-ink:#1a1400;
+      --petrol:#57bdc0; --petrol-soft:#13292b; --on-petrol:#08171a;
+      --flag-red:#e2543f;
+      --go:#5ec78d; --go-soft:#12291d;
+      --warn:#e0a63c; --warn-soft:#2a2113;
+      --stop:#f0776a; --stop-soft:#2e1614;
+      --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e7ebf0; --ink-2:#b3bdca; --ink-3:#7f8b9a;
+    --paper:#0d1014; --surface:#171c22; --surface-2:#1f252d;
+    --line:#333c47; --line-soft:#272f38;
+    --accent:#f2c633; --accent-ink:#1a1400;
+    --petrol:#57bdc0; --petrol-soft:#13292b; --on-petrol:#08171a;
+    --flag-red:#e2543f;
+    --go:#5ec78d; --go-soft:#12291d;
+    --warn:#e0a63c; --warn-soft:#2a2113;
+    --stop:#f0776a; --stop-soft:#2e1614;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.9);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
+  h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.15}
+  p{margin:0}
+  a{color:var(--petrol)}
+
+  .kerb{height:9px;background:repeating-linear-gradient(135deg,var(--flag-red) 0 14px,var(--surface) 14px 28px);border-bottom:1px solid var(--line)}
+  .masthead{background:var(--surface);border-bottom:1px solid var(--line)}
+  .mast-in{max-width:1140px;margin:0 auto;padding-block:14px;padding-left:20px;padding-right:20px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .mast-in h1{font-size:clamp(23px,4.6vw,33px);font-weight:800;letter-spacing:-.015em}
+  .mast-meta{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .teamtag{font-family:var(--mono);font-size:12px;color:var(--ink-3);border:1px dashed var(--line);border-radius:999px;padding:4px 11px}
+
+  .btn{font-family:var(--display);font-weight:600;font-size:13px;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+  .btn:hover{border-color:var(--ink-3)}
+  .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn-go{background:var(--petrol);border-color:var(--petrol);color:var(--on-petrol)}
+
+  /* two-level nav */
+  .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+  .nav-l1{max-width:1140px;margin:0 auto;padding-block:9px 0;padding-left:20px;padding-right:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .lesson-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .btn-print{
+    font-family:var(--display);font-weight:600;font-size:13px;
+    display:flex;align-items:center;gap:7px;
+    background:transparent;color:var(--petrol);border:1px solid var(--petrol);
+    border-radius:6px;padding:7px 13px;cursor:pointer;
+  }
+  .btn-print:hover{background:var(--petrol-soft)}
+  .btn-print:focus-visible{outline:2px solid var(--petrol);outline-offset:2px}
+  .lesson{
+    font-family:var(--display);font-weight:600;font-size:13.5px;
+    display:flex;align-items:baseline;gap:8px;
+    background:transparent;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;
+    padding:7px 13px;cursor:pointer;
+  }
+  .lesson .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .lesson[aria-selected="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .lesson[aria-selected="true"] .n{color:var(--accent)}
+  .nav-l2{max-width:1140px;margin:0 auto;padding-block:7px 8px;padding-left:20px;padding-right:20px;display:flex;gap:5px;overflow-x:auto;scrollbar-width:thin}
+  .tab{flex:0 0 auto;font-family:var(--display);font-weight:600;font-size:13px;background:transparent;color:var(--ink-2);border:1px solid transparent;border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap}
+  .tab:hover{background:var(--surface-2)}
+  .tab[aria-selected="true"]{background:var(--petrol-soft);color:var(--petrol);border-color:var(--petrol)}
+  .tab.done::after{content:" ✓";color:var(--go)}
+
+  .wrap{max-width:1140px;margin:0 auto;padding-block:28px 64px;padding-left:20px;padding-right:20px}
+
+  .st-head{margin-bottom:22px;max-width:64ch}
+  .st-kicker{display:flex;align-items:center;gap:9px;margin-bottom:7px;flex-wrap:wrap}
+  .st-num{font-family:var(--mono);font-weight:600;font-size:12px;background:var(--accent);color:var(--accent-ink);padding:2px 8px;border-radius:3px;letter-spacing:.05em}
+  .role-badge{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--petrol);background:var(--petrol-soft);border-radius:3px;padding:2px 8px}
+  .st-strand{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .st-head h2{font-size:clamp(25px,5vw,36px);font-weight:800;letter-spacing:-.02em}
+  .st-lede{margin-top:8px;color:var(--ink-2);font-size:18px}
+
+  .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){.cols{grid-template-columns:1fr;gap:20px}}
+
+  .col-h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+
+  .srcs{display:flex;flex-direction:column;gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow)}
+  .card h3{font-size:17px;font-weight:600;margin-bottom:6px}
+  .card p{color:var(--ink-2)}
+  .card p + p{margin-top:9px}
+  .card strong{color:var(--ink);font-weight:600}
+
+  .fig{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .fig .v{font-family:var(--mono);font-weight:600;font-size:19px;color:var(--ink);font-variant-numeric:tabular-nums;display:block}
+  .fig .k{font-size:12.5px;color:var(--ink-3);display:block;margin-top:1px}
+
+  .qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+  .q{font-weight:600;display:flex;gap:9px;align-items:flex-start;font-size:16px}
+  .q .qn{font-family:var(--mono);font-size:12px;color:var(--petrol);padding-top:3px}
+  textarea{width:100%;margin-top:6px;resize:vertical;min-height:70px;font-family:var(--body);font-size:16px;line-height:1.45;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:9px 11px}
+  textarea:focus-visible,input:focus-visible,select:focus-visible,.btn:focus-visible,.tab:focus-visible,.lesson:focus-visible{outline:2px solid var(--petrol);outline-offset:2px}
+
+  .apply{margin-top:16px;border-left:4px solid var(--accent);background:var(--surface-2);border-radius:0 8px 8px 0;padding:14px 16px}
+  .apply h4{font-size:12px;font-family:var(--mono);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .apply p{font-weight:600;font-size:16px;color:var(--ink)}
+  .apply textarea{background:var(--surface)}
+
+  .ruleref{font-family:var(--mono);font-size:12.5px;font-weight:600;background:var(--petrol-soft);color:var(--petrol);padding:1px 6px;border-radius:3px;white-space:nowrap}
+  .new{font-family:var(--mono);font-size:10.5px;font-weight:600;background:var(--accent);color:var(--accent-ink);padding:1px 5px;border-radius:3px;letter-spacing:.05em}
+
+  .mic{margin-top:14px;font-size:14px;color:var(--ink-3);display:flex;gap:8px;align-items:flex-start}
+  .mic b{color:var(--ink-2);font-weight:600}
+
+  /* spec tables */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:8px;background:var(--surface);box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;min-width:480px;font-size:15px}
+  th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--line-soft)}
+  thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);background:var(--surface-2);border-bottom:1px solid var(--line)}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.dim{font-weight:600}
+
+  /* spec entry */
+  .specgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .field .hint{font-size:13px;color:var(--ink-3)}
+  input[type=text],input[type=number],select{font-family:var(--body);font-size:16px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:9px 11px;width:100%}
+  input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* scrutineering */
+  .scrut{display:flex;flex-direction:column;gap:8px}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line-soft);border-left-width:4px;border-radius:7px;padding:10px 14px}
+  .row .what{font-weight:600;font-size:15.5px}
+  .row .lim{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);display:block;margin-top:1px}
+  .row .val{font-family:var(--mono);font-size:17px;font-variant-numeric:tabular-nums;font-weight:600;min-width:74px;text-align:right}
+  .row .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;border-radius:3px;padding:3px 8px;white-space:nowrap}
+  .row.pass{border-left-color:var(--go)} .row.pass .verdict{background:var(--go-soft);color:var(--go)}
+  .row.fail{border-left-color:var(--stop)} .row.fail .verdict{background:var(--stop-soft);color:var(--stop)}
+  .row.todo{border-left-color:var(--line)} .row.todo .verdict{background:var(--surface-2);color:var(--ink-3)}
+  .row .why{grid-column:1/-1;font-size:14px;color:var(--ink-2);margin-top:2px}
+  @media (max-width:560px){
+    .row{grid-template-columns:1fr auto}
+    .row .val{grid-column:1/-1;text-align:left;min-width:0}
+  }
+  .tally{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .tally .pill{font-family:var(--mono);font-size:13px;font-weight:600;border-radius:999px;padding:6px 14px}
+  .pill.p{background:var(--go-soft);color:var(--go)}
+  .pill.f{background:var(--stop-soft);color:var(--stop)}
+  .pill.t{background:var(--surface-2);color:var(--ink-3)}
+
+  .callout{background:var(--ink);color:var(--surface);border-radius:8px;padding:18px 20px;margin-bottom:22px}
+  .callout h3{color:var(--accent);font-size:14px;font-family:var(--mono);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .callout p{color:var(--surface);opacity:.93}
+  .callout p + p{margin-top:9px}
+
+  .tnote{display:none;margin-top:20px;background:var(--petrol-soft);border:1px solid var(--petrol);border-radius:8px;padding:14px 16px}
+  body.teacher .tnote{display:block}
+  .tnote h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--petrol);margin-bottom:6px}
+  .tnote p{color:var(--ink-2);font-size:15.5px}
+  .tnote p + p{margin-top:8px}
+
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+  .rolecard{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:14px 16px;box-shadow:var(--shadow)}
+  .rolecard h4{font-size:16px;margin-bottom:3px}
+  .rolecard .owns{font-size:14px;color:var(--ink-3);margin-bottom:9px}
+  body.size-2 .only3{display:none}
+  body.size-3 .only2{display:none}
+  body:not(.size-2):not(.size-3) .only2,body:not(.size-2):not(.size-3) .only3{opacity:.55}
+
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+  .saved{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+
+  footer{max-width:1140px;margin:0 auto;padding-block:0 40px;padding-left:20px;padding-right:20px;color:var(--ink-3);font-size:13.5px}
+
+
+  /* ---------- research desk ---------- */
+  .rnote{
+    display:flex;gap:10px;align-items:flex-start;
+    background:var(--accent);color:var(--accent-ink);
+    border-radius:8px;padding:12px 15px;margin-bottom:18px;
+    font-weight:600;font-size:15.5px;
+  }
+  .rnote b{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+  .rgroup{margin-bottom:22px}
+  .rgroup > h3{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line);
+  }
+  .rlinks{display:flex;flex-direction:column;gap:8px}
+  a.rlink{
+    display:flex;align-items:center;gap:12px;text-decoration:none;
+    background:var(--surface);border:1px solid var(--line-soft);border-left:4px solid var(--petrol);
+    border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);color:var(--ink);
+    min-height:54px;
+  }
+  a.rlink:hover{border-color:var(--petrol);border-left-color:var(--petrol)}
+  a.rlink .rl-t{font-weight:600;font-size:16px;display:block;line-height:1.3}
+  a.rlink .rl-s{font-size:13.5px;color:var(--ink-3);display:block;margin-top:2px}
+  a.rlink .rl-go{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--petrol);
+    border:1px solid var(--petrol);border-radius:999px;padding:4px 10px;white-space:nowrap}
+  a.rlink.why{border-left-color:var(--accent)}
+  a.rlink.why .rl-go{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+
+  .mods{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px}
+  .mods .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+  .mod{
+    font-family:var(--body);font-size:14px;font-weight:600;cursor:pointer;
+    background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line);
+    border-radius:999px;padding:6px 13px;
+  }
+  .mod[aria-pressed="true"]{background:var(--petrol);border-color:var(--petrol);color:var(--on-petrol)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  a.chip-s{
+    display:inline-block;text-decoration:none;
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;
+    padding:9px 15px;font-size:15px;color:var(--ink);min-height:40px;
+  }
+  a.chip-s:hover{border-color:var(--petrol);color:var(--petrol)}
+  a.chip-s .mod-tail{color:var(--petrol);font-weight:600}
+  .rcount{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    background:var(--surface-2);border:1px dashed var(--line);border-radius:8px;
+    padding:12px 15px;margin-top:6px;
+  }
+  .rcount .q{font-weight:600;font-size:15.5px}
+  .tick{
+    font-family:var(--mono);font-size:13px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 13px;color:var(--ink-2);
+  }
+  .tick[aria-pressed="true"]{background:var(--go-soft);border-color:var(--go);color:var(--go);font-weight:600}
+  .tick[aria-pressed="true"]::before{content:"\2713  "}
+
+  /* ---------- standalone site additions ---------- */
+  .teachflag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--petrol);color:var(--on-petrol);border-radius:999px;padding:5px 12px}
+  .btn.arm{background:var(--stop);border-color:var(--stop);color:#fff}
+  .pmirror,.printhead{display:none}
+  footer p+p{margin-top:6px}
+  footer .foot-2{font-size:12.5px}
+  footer a{color:var(--petrol)}
+
+  @media print{
+    /* A page printed from a dark-mode iPad used to come out dark. It does not now.
+       The doubled :root is deliberate: the dark-mode block above is
+       :root:not([data-theme="light"]), which outranks a plain :root, so these
+       have to match its specificity to win. */
+    :root:root,:root:root[data-theme="dark"],:root:root:not([data-theme="light"]){
+      --ink:#000;--ink-2:#1a1a1a;--ink-3:#555;--paper:#fff;--surface:#fff;--surface-2:#fff;
+      --line:#999;--line-soft:#bbb;--accent:#e8b800;--accent-ink:#000;
+      --petrol:#0a5459;--petrol-soft:#eef5f5;--on-petrol:#fff;
+      --go:#1c6b43;--go-soft:#fff;--stop:#a52a18;--stop-soft:#fff;--shadow:none;
+    }
+    .nav,.masthead,.kerb,footer,.actions,.mic,.rnote,.mods,.rcount,.tnote-slot{display:none!important}
+    /* "Print my research" prints lesson 1 only, and only the half they wrote:
+       the source cards are reading they still have on screen, and printing them
+       turns two pages of a child's own work into eight of somebody else's. */
+    body.print-research .panel[data-lesson="L2"]{display:none!important}
+    body.print-research .cols{grid-template-columns:1fr}
+    body.print-research .cols>div:first-child{display:none!important}
+    body{background:#fff;color:#000;font-size:10.5pt}
+    .wrap{padding:0;max-width:none}
+    /* every lesson panel prints, not just the one on screen */
+    .panel[hidden]{display:block!important}
+    .panel[data-lesson="R"]{display:none!important}
+    .panel+.panel{break-before:page}
+    /* typed answers print in full instead of being clipped by a 3-row box */
+    textarea,input,select{display:none!important}
+    .pmirror{display:block;font-family:var(--body);font-size:10.5pt;color:#000;
+      border-bottom:1px solid #999;padding:3px 0;margin-top:4px;white-space:pre-wrap;min-height:1.3em}
+    .printhead{display:block;font-family:var(--display);font-weight:600;font-size:12pt;
+      border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:16px}
+    .card,.tablewrap,.row,.apply,.rolecard,.callout,.tnote{box-shadow:none;break-inside:avoid}
+    .callout{border:1px solid #000}
+    a[href]{color:#000;text-decoration:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="printhead" id="printHead"></div>
+<div class="kerb"></div>
+<header class="masthead">
+  <div class="mast-in">
+    <div>
+      <div class="eyebrow">Band Car Grand Prix · Research &amp; Development · Year 5</div>
+      <h1>The Constructor's Brief</h1>
+    </div>
+    <div class="mast-meta">
+      <span class="teamtag" id="teamTag">No team yet</span>
+      <span class="teachflag" id="teachFlag" hidden>Teacher notes on</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Lessons and sections">
+  <div class="nav-l1">
+    <div class="lesson-tabs" role="tablist">
+      <button class="lesson" role="tab" aria-selected="true" data-lesson="L1"><span class="n">Lesson 1</span>Research</button>
+      <button class="lesson" role="tab" aria-selected="false" data-lesson="L2"><span class="n">Lesson 2</span>Design the car</button>
+      <button class="lesson" role="tab" aria-selected="false" data-lesson="R"><span class="n">Any time</span>Research Desk</button>
+    </div>
+    <button class="btn-print" type="button" id="printResearchBtn">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>
+      Print my research
+    </button>
+  </div>
+  <div class="nav-l2" id="subnav" role="tablist"></div>
+</nav>
+
+<main class="wrap" id="main">
+
+<!-- ================= LESSON 1 ================= -->
+
+<section class="panel" role="tabpanel" data-slug="1-1" id="p-team" data-lesson="L1" data-label="Your Team">
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.1</span><span class="st-strand">Whole team · 10 minutes</span></div>
+    <h2>Form Your Constructor</h2>
+    <p class="st-lede">A constructor is a team that designs and builds its own car. Yours is two or three people, and every one of you owns real parts of the car. Nobody is a passenger.</p>
+  </div>
+
+  <div class="card">
+    <div class="specgrid">
+      <div class="field">
+        <label for="t-size">How many in your team?</label>
+        <select id="t-size">
+          <option value="">Choose…</option>
+          <option value="2">2 people</option>
+          <option value="3">3 people</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="t-name">Team name</label>
+        <input type="text" autocomplete="off" id="t-name" placeholder="You can change it later">
+        <span class="hint">Short, sayable, and it has to fit on a 100 mm car.</span>
+      </div>
+      <div class="field">
+        <label for="t-class">Class</label>
+        <select id="t-class">
+          <option value="">Choose…</option>
+          <option>Class A — Winder</option>
+          <option>Class B — Hook</option>
+        </select>
+        <span class="hint">Rules 1.2 and 1.3.</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 4px;font-size:19px">Who owns what</h3>
+  <p style="color:var(--ink-2);margin-bottom:12px">Your job is not "helping". It is a list of parts that are yours to design, measure and defend at scrutineering.</p>
+
+  <div class="roles">
+    <div class="rolecard">
+      <h4>Bodywork</h4>
+      <p class="owns only3">Owns: the nose cone and the main body, including the band channel.</p>
+      <p class="owns only2">Owns: the nose cone, the main body with its band channel, <strong>and</strong> the rear wing.</p>
+      <div class="field"><label for="r-body">Name</label><input type="text" autocomplete="off" id="r-body"></div>
+    </div>
+    <div class="rolecard only3">
+      <h4>Aerodynamicist</h4>
+      <p class="owns">Owns: the rear wing, and the argument about whether the car should have one at all.</p>
+      <div class="field"><label for="r-aero">Name</label><input type="text" autocomplete="off" id="r-aero"></div>
+    </div>
+    <div class="rolecard">
+      <h4>Running Gear</h4>
+      <p class="owns">Owns: the four wheels, the tyre grooves, and the drive band.</p>
+      <div class="field"><label for="r-run">Name</label><input type="text" autocomplete="off" id="r-run"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Jobs everyone shares</h3>
+    <p>Whoever is not talking is <strong>writing it down</strong>. Every number on this page has to be agreed out loud by the whole team before it is typed, because at scrutineering the whole car passes or the whole car fails.</p>
+  </div>
+
+  <div class="mic"><b>On the iPad:</b><span>Tap a box, then tap the microphone key on the keyboard and say your answer. Talk it through with your team first, then dictate the version you agree on.</span></div>
+
+  <div class="tnote-slot" data-note="p-team-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="1-2" id="p-rules" data-lesson="L1" data-label="The Rules" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.2</span><span class="st-strand">Whole team</span></div>
+    <h2>The Rules</h2>
+    <p class="st-lede">Every Formula 1 car on the grid is different. Every one of them was built to the same rulebook. Find out why that rulebook exists, and what it does to a car that breaks it.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-h">Your sources</div>
+      <div class="srcs">
+        <div class="card">
+          <h3>One rulebook, ten different cars</h3>
+          <p>Formula 1 is run to a set of <strong>technical regulations</strong> written by the FIA, the organisation in charge of the sport. The regulations say how long a car may be, how heavy it must be, what shape the floor can be, and hundreds of other things.</p>
+          <p>Teams do not share designs. Each one reads the same rulebook and builds its own car, which is why the cars look similar but never identical. Without a rulebook, the team with the most money would build the biggest engine and win every race, and nobody would watch.</p>
+          <p>Engineers live by an unwritten rule: <strong>anything the rulebook does not forbid is allowed.</strong> Teams read the rules hunting for gaps, and some of the cleverest cars in history came from finding one.</p>
+        </div>
+        <div class="card">
+          <h3>Scrutineering: the check before the race</h3>
+          <p>Before a car races, officials called <strong>scrutineers</strong> measure it, weigh it and inspect it. If it fails, it can be <strong>excluded</strong>, and the driver loses everything from that race even if they crossed the line first. Cars have been thrown out for being under the weight limit by less than a kilogram.</p>
+          <p>Your car faces the same check in Lesson 9. It must pass a <strong>gauge box of 110 × 70 × 70 mm</strong> standing on its own four wheels, without anybody forcing it <span class="ruleref">2.2</span>.</p>
+        </div>
+        <div class="card">
+          <h3>Rules are written by people, so people change them</h3>
+          <p>For 2026 Formula 1 rewrote a large part of its rulebook. Cars became lighter and shorter, the floor narrower, and about half the car's power now comes from electricity.</p>
+          <p>The biggest change: 2026 cars have <strong>wings that move while the car is driving</strong>, lying flat on the straights for speed and tilting up in the corners for grip. Moveable wings were banned for decades. Your <span class="ruleref">6.5</span> still bans them. Formula 1 changed its mind.</p>
+          <div class="fig">
+            <div><span class="v">768 kg</span><span class="k">F1 minimum weight, 2026</span></div>
+            <div><span class="v">3.4 m</span><span class="k">F1 maximum wheelbase</span></div>
+            <div><span class="v">110 mm</span><span class="k">Your maximum length</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">Answer these</div>
+      <div class="card">
+        <ol class="qlist">
+          <li><div class="q"><span class="qn">Q1</span><span>Why does Formula 1 have a rulebook at all? Give two reasons.</span></div><textarea id="s1q1" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q2</span><span>What happens to a car that fails scrutineering?</span></div><textarea id="s1q2" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q3</span><span>Find one thing Formula 1 changed for 2026. Why do you think they changed it?</span></div><textarea id="s1q3" rows="3"></textarea></li>
+        </ol>
+        <div class="apply">
+          <h4>So what for your car?</h4>
+          <p>There is a trick hiding in <span class="ruleref">9.2</span>: distance is measured from the start line to the <strong>rearmost point of the stopped car</strong>. Not the front. What does that tell you about how long your car should be?</p>
+          <textarea id="s1apply" rows="4" placeholder="Because it is measured to the rearmost point, a longer car... So we think our car should be..."></textarea>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="p-rules-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="1-3" id="p-air" data-lesson="L1" data-label="Air &amp; the Body" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.3</span><span class="role-badge">Bodywork</span><span class="st-strand">Research strand</span></div>
+    <h2>Air and the Body</h2>
+    <p class="st-lede">You own the nose cone and the main body. Both of them are shapes that have to push air out of the way. Find out what the air is actually doing, then work out whether it is doing it to a car the size of your hand.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-h">Your sources</div>
+      <div class="srcs">
+        <div class="card">
+          <h3>Drag: the air pushing back</h3>
+          <p>Air is thin, but it is not nothing. Anything moving through it has to shove it aside, and the air shoves back. That backwards push is <strong>drag</strong>.</p>
+          <p>Here is the part that matters. Drag does not simply double when you double your speed. It goes up <strong>four times</strong>. Three times faster and it is nine times bigger. At 300 km/h a Formula 1 car is pushing against something close to a wall of air, and most of its power goes on that alone.</p>
+        </div>
+        <div class="card">
+          <h3>Frontal area: the size of the hole you punch</h3>
+          <p>The other half of drag is <strong>frontal area</strong> — how big a hole the car makes in the air, seen from directly in front. A taller, wider car punches a bigger hole and drags more.</p>
+          <p>This is why Formula 1 cars are so low, and why the driver lies almost flat. It is also why your main body has to stay low, while the rear wing is allowed to stand tall: the wing is thin, so it costs little frontal area for the job it does.</p>
+        </div>
+        <div class="card">
+          <h3>Two speeds, side by side</h3>
+          <p>Aerodynamics is not one answer for every vehicle. It depends enormously on how fast the thing is going.</p>
+          <div class="fig">
+            <div><span class="v">83 m/s</span><span class="k">F1 car at 300 km/h</span></div>
+            <div><span class="v">1.5 m/s</span><span class="k">Your band car, about walking pace</span></div>
+            <div><span class="v">×55</span><span class="k">How much faster the F1 car is</span></div>
+          </div>
+          <p style="margin-top:12px">Remember what drag does when speed goes up. Then remember which of these two cars you are designing.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">Answer these</div>
+      <div class="card">
+        <ol class="qlist">
+          <li><div class="q"><span class="qn">Q1</span><span>Explain drag in your own words, including what happens to it when a car speeds up.</span></div><textarea id="s2q1" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q2</span><span>Two cars are identical except one is taller. Which drags more, and why?</span></div><textarea id="s2q2" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q3</span><span>Why is a Formula 1 driver almost lying down?</span></div><textarea id="s2q3" rows="3"></textarea></li>
+        </ol>
+        <div class="apply">
+          <h4>So what for your car?</h4>
+          <p>Your car travels at walking pace. Does drag matter as much to you as it does to a Formula 1 car? <strong>How would you find out?</strong> Describe a test you could actually run in Lesson 9.</p>
+          <textarea id="s2apply" rows="4" placeholder="What I think: The test I would run: What each result would tell me:"></textarea>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="p-air-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="1-4" id="p-wing" data-lesson="L1" data-label="Wings" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.4</span><span class="role-badge only3">Aerodynamicist</span><span class="role-badge only2">Bodywork</span><span class="st-strand">Research strand</span></div>
+    <h2>Wings and Downforce</h2>
+    <p class="st-lede">You own the rear wing. Before you draw one, find out what a wing is actually for, and whether a car that only goes in a straight line needs one at all.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-h">Your sources</div>
+      <div class="srcs">
+        <div class="card">
+          <h3>A wing fitted upside down</h3>
+          <p>An aeroplane wing is shaped so the air pushes it <em>up</em>. Turn it upside down and the air pushes <em>down</em> instead. That push is <strong>downforce</strong>, and it presses the tyres into the track so they grip harder.</p>
+          <p>A Formula 1 car at full speed makes more downforce than the car weighs. People like to say it could drive along a tunnel ceiling. That is roughly true, and it is entirely because of wings and the shape of the floor.</p>
+        </div>
+        <div class="card">
+          <h3>Downforce is never free</h3>
+          <p>A wing big enough to make downforce also makes <strong>drag</strong>. Every team in Formula 1 spends the season arguing about how much wing to fit, because more wing means faster corners and slower straights. At a track with one enormous straight they take wing off. At a twisty track they bolt it back on.</p>
+          <p>There is a second cost, and it is the one that matters to you. Pressing the tyres down harder makes them grip more, but it also makes them <strong>harder to roll</strong>. A car pressed into the ground rolls less far.</p>
+        </div>
+        <div class="card">
+          <h3>Your track is a straight line</h3>
+          <p><span class="ruleref">9.2</span> Distance from the start line to the rearmost point of the stopped car. <span class="ruleref">5.7</span> No steering.</p>
+          <p>Your car has no corners to take. It is launched, it runs straight, it stops. Then ask yourself what a wing is for, and whether there is any moment at all in that run when extra grip would help. There might be one. Think about the very first instant, when the band is tightest.</p>
+          <div class="fig">
+            <div><span class="v">20–50 mm</span><span class="k">Legal wing span <span class="ruleref">6.11</span></span></div>
+            <div><span class="v">30–70 mm</span><span class="k">Legal wing height <span class="ruleref">6.13</span></span></div>
+            <div><span class="v">optional</span><span class="k">Bodywork is not compulsory <span class="ruleref">6.1</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">Answer these</div>
+      <div class="card">
+        <ol class="qlist">
+          <li><div class="q"><span class="qn">Q1</span><span>What is downforce, and how does a wing make it?</span></div><textarea id="s3q1" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q2</span><span>Name the two things a bigger wing costs you.</span></div><textarea id="s3q2" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q3</span><span>Why do teams fit a smaller wing at a track with a very long straight?</span></div><textarea id="s3q3" rows="3"></textarea></li>
+        </ol>
+        <div class="apply">
+          <h4>So what for your car?</h4>
+          <p>Bodywork is <strong>optional</strong> <span class="ruleref">6.1</span>. Argue it out: does your car get a rear wing or not? Write the decision and the reason. "It looks cool" is not a reason a scrutineer accepts.</p>
+          <textarea id="s3apply" rows="4" placeholder="Our decision: Our reason: What we would have to see in the race data to admit we were wrong:"></textarea>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="p-wing-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="1-5" id="p-wheels" data-lesson="L1" data-label="Wheels &amp; Grip" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.5</span><span class="role-badge">Running Gear</span><span class="st-strand">Research strand</span></div>
+    <h2>Wheels and Grip</h2>
+    <p class="st-lede">You own the wheels, the tyres and the band. Everything the engine does has to get to the ground through your parts, and most of it does not make it.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-h">Your sources</div>
+      <div class="srcs">
+        <div class="card">
+          <h3>Why a racing car has rubber tyres</h3>
+          <p>A Formula 1 tyre is soft rubber, deliberately. Soft rubber grips, and grip is what lets the car put its power into the road instead of spinning uselessly. The cost is that soft tyres wear out, sometimes in twenty laps, which is why races have pit stops at all.</p>
+          <p>Your tyres are rubber bands sitting in a groove in your wheel. They must stand <strong>proud of the rim</strong> <span class="ruleref">5.3</span>, so the rubber touches the floor and the plastic does not. A groove cut half a millimetre too deep means the band never reaches the ground and your car spins on bare plastic.</p>
+        </div>
+        <div class="card">
+          <h3>Wheelspin: the power that goes nowhere</h3>
+          <p>When a driver accelerates too hard the tyres break traction and spin, and the car goes nowhere while the wheels go everywhere. Formula 1 cars have careful electronic launch systems to stop exactly this at the start of a race.</p>
+          <p>Your car has no electronics. It has a stretched band that dumps all its energy in the first second, straight into two driven wheels. <strong>Wheelspin at launch is the single biggest thing that will steal your distance</strong>, and grip is your only defence.</p>
+        </div>
+        <div class="card">
+          <h3>Big wheels, small wheels</h3>
+          <p>A big wheel travels further for each turn of the axle, so the same wound band carries the car further. But a big wheel is heavier, it is harder to get turning in the first place, and it lifts the car higher into the air.</p>
+          <p>A small wheel spins up easily and keeps the car low, but each turn of the axle buys you less ground. This is a genuine trade and Formula 1 argues about it too: in 2026 the cars moved to <strong>narrower</strong> tyres, giving up some grip to gain less drag and less weight.</p>
+          <div class="fig">
+            <div><span class="v">35–65 mm</span><span class="k">Legal wheel diameter <span class="ruleref">2.7</span></span></div>
+            <div><span class="v">4–10 mm</span><span class="k">Legal wheel width <span class="ruleref">2.8</span></span></div>
+            <div><span class="v">15</span><span class="k">Maximum winds <span class="ruleref">4.5</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">Answer these</div>
+      <div class="card">
+        <ol class="qlist">
+          <li><div class="q"><span class="qn">Q1</span><span>Why are racing tyres made of soft rubber, and what does that cost?</span></div><textarea id="s4q1" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q2</span><span>What is wheelspin, and why will it matter most at the very start of your run?</span></div><textarea id="s4q2" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">Q3</span><span>Give one advantage and one disadvantage of a bigger wheel.</span></div><textarea id="s4q3" rows="3"></textarea></li>
+        </ol>
+        <div class="apply">
+          <h4>So what for your car?</h4>
+          <p>Big wheels or small wheels? Write your decision and your reason now, <strong>before</strong> you see the exact limits in Lesson 2. Then in Lesson 2 you will find out whether the rules even let you have what you asked for.</p>
+          <textarea id="s4apply" rows="4" placeholder="We want wheels of about ___ mm because..."></textarea>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="p-wheels-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="1-6" id="p-hw" data-lesson="L1" data-label="Homework" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">1.6</span><span class="st-strand">Optional · between the lessons</span></div>
+    <h2>Livery Homework</h2>
+    <p class="st-lede">Optional, and not assessed. If you want to think about what your car will look like before we design what it <em>is</em>, this is where to put the ideas.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-h">Worth knowing first</div>
+      <div class="srcs">
+        <div class="card">
+          <h3>What a livery is</h3>
+          <p>A team's <strong>livery</strong> is its colours and markings. For most of racing history the colour told you the country: green for Britain, red for Italy, blue for France, silver for Germany. Fans recognise a team from a blur of colour long before they can read a word on it.</p>
+        </div>
+        <div class="card">
+          <h3>What a sponsor is buying</h3>
+          <p>A large share of a racing team's money comes from <strong>sponsors</strong> who pay to put their name on the car. What they are buying is <strong>seconds of attention</strong>. A car crosses a television camera in a fraction of a second. If the logo cannot be recognised in that fraction, the money was wasted.</p>
+        </div>
+        <div class="card">
+          <h3>Your car is 100 mm long</h3>
+          <p>Designs that work small and fast all follow the same rules: <strong>few colours, big simple shapes, strong contrast.</strong> Designs that fail: thin outlines, which vanish; gradients, which turn to mush; small text, which becomes a grey smudge; and more than about four colours, which stops being a pattern and becomes noise.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">Bring these to Lesson 7</div>
+      <div class="card">
+        <ol class="qlist">
+          <li><div class="q"><span class="qn">1</span><span>Three colours for your team, and where each one goes.</span></div><textarea id="hw1" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">2</span><span>An invented sponsor, and why that sponsor would pay to be on <em>this</em> car.</span></div><textarea id="hw2" rows="3"></textarea></li>
+          <li><div class="q"><span class="qn">3</span><span>One idea you have already ruled out because the car is only 100 mm long.</span></div><textarea id="hw3" rows="3"></textarea></li>
+        </ol>
+        <div class="apply">
+          <h4>Try this if you want to</h4>
+          <p>Draw your idea, then hold it at arm's length and squint. If you can still tell what it is, it will work on the car. If it turns into a smudge, it will not.</p>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="p-hw-1"></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="panel" role="tabpanel" data-slug="r1" id="r-body" data-lesson="R" data-label="Nose &amp; Body" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">R1</span><span class="role-badge">Bodywork</span><span class="st-strand">Research desk</span></div>
+    <h2>Nose Cone and Body</h2>
+    <p class="st-lede">You own the shape that meets the air first and the shape that carries the band. Start with these five, then search for your own.</p>
+  </div>
+
+  <div class="rnote"><b>Two images<br>each</b><span>Open a picture, tap it so it fills the screen, then press and hold it and choose <strong>Add to Photos</strong>. Two is the limit. You are researching, not browsing.</span></div>
+
+  <div class="cols">
+    <div>
+      <div class="rgroup">
+        <h3>Start here — pictures to save</h3>
+        <div class="rlinks">
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Force_India_VJM09_front_nose_and_wing_2016_Malaysia.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Nose and front wing, close</span><span class="rl-s">Force India VJM09, Malaysia 2016. Look at how low and wide the blade is.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Caterham_CT05_front_nose_2014_Singapore.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Nose close-up</span><span class="rl-s">Caterham CT05, Singapore 2014. The nose is a separate bolt-on part.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Renault_R30_front_wing_Canada_2010.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Nose cone from the front</span><span class="rl-s">Renault R30, Canada 2010. Good for drawing the front view.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:McLaren_MP4-26_sidepods_2.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Sidepod</span><span class="rl-s">McLaren MP4-26. This is the shape your body's middle is based on.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Bargeboard_quarterview.png" target="_blank" rel="noopener"><span><span class="rl-t">Labelled diagram, quarter view</span><span class="rl-s">Every part named. Print this one in your head.</span></span><span class="rl-go">open</span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Read why, not just what</h3>
+        <div class="rlinks">
+        <a class="rlink why" href="https://www.raceteq.com/articles/2025/06/why-is-the-coke-bottle-shape-so-important-in-formula-1-aerodynamics" target="_blank" rel="noopener"><span><span class="rl-t">Why the body narrows at the back</span><span class="rl-s">The coke-bottle shape, explained.</span></span><span class="rl-go">read</span></a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="rgroup">
+        <h3>Search it yourself</h3>
+        <div class="mods" data-mods>
+          <span class="lbl">Add to every search</span>
+          <button class="mod" aria-pressed="false" data-mod="side view">side view</button>
+          <button class="mod" aria-pressed="false" data-mod="top view">top view</button>
+          <button class="mod" aria-pressed="false" data-mod="from behind">from behind</button>
+          <button class="mod" aria-pressed="false" data-mod="close up">close up</button>
+        </div>
+        <div class="chips">
+        <a class="chip-s" data-q="Formula 1 nose cone photo" href="https://www.bing.com/images/search?q=Formula%201%20nose%20cone%20photo" target="_blank" rel="noopener">Formula 1 nose cone photo<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 car side view photo" href="https://www.bing.com/images/search?q=F1%20car%20side%20view%20photo" target="_blank" rel="noopener">F1 car side view photo<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 car top view photo" href="https://www.bing.com/images/search?q=F1%20car%20top%20view%20photo" target="_blank" rel="noopener">F1 car top view photo<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="what is an F1 sidepod" href="https://www.bing.com/images/search?q=what%20is%20an%20F1%20sidepod" target="_blank" rel="noopener">what is an F1 sidepod<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="why F1 body narrows at the back" href="https://www.bing.com/images/search?q=why%20F1%20body%20narrows%20at%20the%20back" target="_blank" rel="noopener">why F1 body narrows at the back<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 coke bottle shape explained" href="https://www.bing.com/images/search?q=F1%20coke%20bottle%20shape%20explained" target="_blank" rel="noopener">F1 coke bottle shape explained<span class="mod-tail"></span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Before you leave this page</h3>
+        <div class="rcount">
+          <span class="q">Have you saved your two?</span>
+          <button class="tick" aria-pressed="false" id="tick-r-body-1">image 1 saved</button>
+          <button class="tick" aria-pressed="false" id="tick-r-body-2">image 2 saved</button>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="r-body-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="r2" id="r-wing" data-lesson="R" data-label="Rear Wing" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">R2</span><span class="role-badge">Aerodynamicist</span><span class="st-strand">Research desk</span></div>
+    <h2>The Rear Wing</h2>
+    <p class="st-lede">You own the only part allowed to stand tall. Find out what a wing is for before you decide how big yours should be.</p>
+  </div>
+
+  <div class="rnote"><b>Two images<br>each</b><span>Open a picture, tap it so it fills the screen, then press and hold it and choose <strong>Add to Photos</strong>. Two is the limit. You are researching, not browsing.</span></div>
+
+  <div class="cols">
+    <div>
+      <div class="rgroup">
+        <h3>Start here — pictures to save</h3>
+        <div class="rlinks">
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Rear_wings_of_Red_Bull,_Lotus_and_Williams.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Three wings compared</span><span class="rl-s">Red Bull, Lotus and Williams side by side. Same race, three answers.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Mercedes_F1_W03_rear_wing_hole_2012_Malayisia.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Wing close-up</span><span class="rl-s">Mercedes F1 W03, Malaysia 2012. Look at how thin the blade is.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Williams_FW16B_rear_wing_Donington_Grand_Prix_Collection.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Museum wing, all angles</span><span class="rl-s">Williams FW16B at Donington. Clean light, easy to trace.</span></span><span class="rl-go">open</span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Read why, not just what</h3>
+        <div class="rlinks">
+        <a class="rlink why" href="https://www.formula1.com/en/latest/article/f1-explains-downforce-and-why-f1-cars-have-wings-with-mclaren-aero.10xj8CJPz8s7CmwfoyWmCU" target="_blank" rel="noopener"><span><span class="rl-t">What downforce actually is</span><span class="rl-s">F1 explains it with a McLaren aerodynamicist.</span></span><span class="rl-go">read</span></a>
+        <a class="rlink why" href="https://www.motorsport.com/f1/news/monza-f1-wings-explained-italian-gp/4870559/" target="_blank" rel="noopener"><span><span class="rl-t">Why Monza gets tiny wings</span><span class="rl-s">The track with the longest straights, and what teams do about it.</span></span><span class="rl-go">read</span></a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="rgroup">
+        <h3>Search it yourself</h3>
+        <div class="mods" data-mods>
+          <span class="lbl">Add to every search</span>
+          <button class="mod" aria-pressed="false" data-mod="side view">side view</button>
+          <button class="mod" aria-pressed="false" data-mod="top view">top view</button>
+          <button class="mod" aria-pressed="false" data-mod="from behind">from behind</button>
+          <button class="mod" aria-pressed="false" data-mod="close up">close up</button>
+        </div>
+        <div class="chips">
+        <a class="chip-s" data-q="Formula 1 rear wing photo" href="https://www.bing.com/images/search?q=Formula%201%20rear%20wing%20photo" target="_blank" rel="noopener">Formula 1 rear wing photo<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 rear wing from behind" href="https://www.bing.com/images/search?q=F1%20rear%20wing%20from%20behind" target="_blank" rel="noopener">F1 rear wing from behind<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="what is downforce simple" href="https://www.bing.com/images/search?q=what%20is%20downforce%20simple" target="_blank" rel="noopener">what is downforce simple<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="upside down wing downforce" href="https://www.bing.com/images/search?q=upside%20down%20wing%20downforce" target="_blank" rel="noopener">upside down wing downforce<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="Monza F1 small rear wing" href="https://www.bing.com/images/search?q=Monza%20F1%20small%20rear%20wing" target="_blank" rel="noopener">Monza F1 small rear wing<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 rear wing endplate photo" href="https://www.bing.com/images/search?q=F1%20rear%20wing%20endplate%20photo" target="_blank" rel="noopener">F1 rear wing endplate photo<span class="mod-tail"></span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Before you leave this page</h3>
+        <div class="rcount">
+          <span class="q">Have you saved your two?</span>
+          <button class="tick" aria-pressed="false" id="tick-r-wing-1">image 1 saved</button>
+          <button class="tick" aria-pressed="false" id="tick-r-wing-2">image 2 saved</button>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="r-wing-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="r3" id="r-wheel" data-lesson="R" data-label="Wheels &amp; Tyres" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">R3</span><span class="role-badge">Running Gear</span><span class="st-strand">Research desk</span></div>
+    <h2>Wheels and Tyres</h2>
+    <p class="st-lede">Everything the band does reaches the ground through your parts. Most of it does not make it.</p>
+  </div>
+
+  <div class="rnote"><b>Two images<br>each</b><span>Open a picture, tap it so it fills the screen, then press and hold it and choose <strong>Add to Photos</strong>. Two is the limit. You are researching, not browsing.</span></div>
+
+  <div class="cols">
+    <div>
+      <div class="rgroup">
+        <h3>Start here — pictures to save</h3>
+        <div class="rlinks">
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Rays_F1_Front_Wheel.JPG" target="_blank" rel="noopener"><span><span class="rl-t">Rim face, no tyre on it</span><span class="rl-s">Rays F1 front wheel. This is the part you are designing.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:F1_Slick_Tires.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Slick tyres</span><span class="rl-s">No tread at all. Work out why.</span></span><span class="rl-go">open</span></a>
+        <a class="rlink" href="https://commons.wikimedia.org/wiki/File:Used_slick_tyres_Austrian_GP_2016.jpg" target="_blank" rel="noopener"><span><span class="rl-t">Used slicks, side on</span><span class="rl-s">Austrian GP 2016. Good for seeing how the tyre sits on the rim.</span></span><span class="rl-go">open</span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Read why, not just what</h3>
+        <div class="rlinks">
+        <a class="rlink why" href="https://www.formula1.com/en/latest/article/the-beginners-guide-to-formula-1-tyres.61SvF0Kfg29UR2SPhakDqd" target="_blank" rel="noopener"><span><span class="rl-t">Soft tyres and hard tyres</span><span class="rl-s">The beginner's guide to F1 tyres.</span></span><span class="rl-go">read</span></a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="rgroup">
+        <h3>Search it yourself</h3>
+        <div class="mods" data-mods>
+          <span class="lbl">Add to every search</span>
+          <button class="mod" aria-pressed="false" data-mod="side view">side view</button>
+          <button class="mod" aria-pressed="false" data-mod="top view">top view</button>
+          <button class="mod" aria-pressed="false" data-mod="from behind">from behind</button>
+          <button class="mod" aria-pressed="false" data-mod="close up">close up</button>
+        </div>
+        <div class="chips">
+        <a class="chip-s" data-q="Formula 1 wheel photo" href="https://www.bing.com/images/search?q=Formula%201%20wheel%20photo" target="_blank" rel="noopener">Formula 1 wheel photo<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 wheel close up" href="https://www.bing.com/images/search?q=F1%20wheel%20close%20up" target="_blank" rel="noopener">F1 wheel close up<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="F1 tyre side view" href="https://www.bing.com/images/search?q=F1%20tyre%20side%20view" target="_blank" rel="noopener">F1 tyre side view<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="what is rolling resistance" href="https://www.bing.com/images/search?q=what%20is%20rolling%20resistance" target="_blank" rel="noopener">what is rolling resistance<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="why soft tyres grip better" href="https://www.bing.com/images/search?q=why%20soft%20tyres%20grip%20better" target="_blank" rel="noopener">why soft tyres grip better<span class="mod-tail"></span></a>
+        <a class="chip-s" data-q="heavy wheel harder to spin" href="https://www.bing.com/images/search?q=heavy%20wheel%20harder%20to%20spin" target="_blank" rel="noopener">heavy wheel harder to spin<span class="mod-tail"></span></a>
+        </div>
+      </div>
+      <div class="rgroup">
+        <h3>Before you leave this page</h3>
+        <div class="rcount">
+          <span class="q">Have you saved your two?</span>
+          <button class="tick" aria-pressed="false" id="tick-r-wheel-1">image 1 saved</button>
+          <button class="tick" aria-pressed="false" id="tick-r-wheel-2">image 2 saved</button>
+        </div>
+      </div>
+      <div class="tnote-slot" data-note="r-wheel-1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="r4" id="r-how" data-lesson="R" data-label="How to Search" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">R4</span><span class="st-strand">Method</span></div>
+    <h2>Finding It Fast</h2>
+    <p class="st-lede">Fifty minutes goes quickly. These four habits are the difference between a team that finishes with usable reference and a team that finishes with a full camera roll and nothing to draw.</p>
+  </div>
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h3>1. Start from the links, not the search box</h3>
+        <p>Someone has already found good pictures for your part. Open the Research Desk page for your role and take one or two from there. Search only when you want something the links do not have.</p>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>2. Go to Images, then steer the search</h3>
+        <p>Search, then tap <strong>Images</strong> at the top. Then add a direction word: <strong>side view</strong>, <strong>top view</strong>, <strong>from behind</strong>, <strong>close up</strong>. A bare search gives you adverts and game screenshots. A steered search gives you something you can trace.</p>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>3. Two images each. No more.</h3>
+        <p>You will trace one of them. The second is your spare. A camera roll with fourteen pictures in it means you spend next lesson scrolling instead of drawing, and you will still trace the first one you saw.</p>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>4. Read one thing, not just look</h3>
+        <p>Each role has a "read why" link. Open it. Pictures tell you what a part looks like; only the reading tells you what it is <em>for</em>, and the reason is what you have to write on your design sheet.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Saving a picture on the iPad</h3>
+        <p><strong>1.</strong> Tap the picture so it fills the screen.</p>
+        <p><strong>2.</strong> Press and hold on it.</p>
+        <p><strong>3.</strong> Choose <strong>Add to Photos</strong>.</p>
+        <p><strong>4.</strong> Next lesson: Procreate, Actions, Add, Insert a photo.</p>
+      </div>
+      <div class="apply">
+        <h4>Take one idea, not one car</h4>
+        <p>Tracing a photograph to work out how a shape is made is what designers do. Tracing it, changing nothing and calling it yours is not.</p>
+        <p style="font-weight:400;margin-top:8px">If someone can name the car you copied, you copied. If they can only say it reminds them of something, you designed.</p>
+      </div>
+      <div class="tnote-slot" data-note="r-how-1"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LESSON 2 ================= -->
+
+<section class="panel" role="tabpanel" data-slug="2-1" id="p-brief" data-lesson="L2" data-label="The Brief" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.1</span><span class="st-strand">Whole team · 10 minutes</span></div>
+    <h2>What You Are Given</h2>
+    <p class="st-lede">Formula 1 teams do not design everything. Some parts are the same for every car on the grid, set by the rules, and the design work happens around them. Yours works the same way.</p>
+  </div>
+
+  <div class="callout">
+    <h3>The base frame is not yours to change</h3>
+    <p>Every team gets the same 3D printed chassis frame. It is <strong>85 mm long</strong>, it carries both axles, and it has a <strong>hook</strong> underneath for the elastic band to latch onto. You do not design it, you do not cut it, and you cannot make it longer.</p>
+    <p>What you <em>do</em> design: the <strong>wheels</strong>, the <strong>tyre grooves</strong>, the <strong>nose cone</strong>, the <strong>main body</strong> with its band channel, and the <strong>rear wing</strong>. Five parts, three owners, one gauge box.</p>
+  </div>
+
+  <h3 style="margin:0 0 10px;font-size:19px">The envelope: what the gauge box allows</h3>
+  <p style="color:var(--ink-2);margin-bottom:14px;max-width:64ch">Your finished car, standing on its own four wheels with the band fitted, has to drop into a box of 110 × 70 × 70 mm without anyone forcing it <span class="ruleref">2.2</span>.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Dimension</th><th>Smallest</th><th>Biggest</th><th>The set frame gives you</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Overall length</td><td class="num">60.0</td><td class="num">110.0</td><td class="num">85.0 bare</td><td class="num">2.3</td></tr>
+        <tr><td class="dim">Overall width</td><td class="num">—</td><td class="num">70.0</td><td class="num">54.0 over the wheels</td><td class="num">2.4</td></tr>
+        <tr><td class="dim">Overall height</td><td class="num">—</td><td class="num">70.0</td><td class="num">depends on your wheels</td><td class="num">2.5</td></tr>
+        <tr><td class="dim">Wheelbase</td><td class="num">40.0</td><td class="num">75.0</td><td class="num">68.0 fixed</td><td class="num">2.6</td></tr>
+        <tr><td class="dim">Ground clearance</td><td class="num">5.0</td><td class="num">25.0</td><td class="num">your wheel ÷ 2 − 4.5</td><td class="num">2.10</td></tr>
+        <tr><td class="dim">Complete car mass</td><td class="num">28.0 g</td><td class="num">60.0 g</td><td class="num">about 26 g bare</td><td class="num">3.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Two limits that are new, and why they exist</h3>
+    <p><strong>A <em>minimum</em> mass of 28 g <span class="new">new</span>.</strong> You are allowed to cut holes in your parts to save print time, and you should. But a car made entirely of holes is a fragile car, and a light car spins its wheels at launch instead of moving. If your finished car comes in under 28 g you must add <strong>declared ballast</strong> <span class="ruleref">3.3</span> to make the weight up. Formula 1 has exactly this rule, for exactly the first of those reasons.</p>
+    <p><strong>A <em>maximum</em> ground clearance of 25 mm <span class="new">new</span>.</strong> The frame sits at half your wheel diameter, minus 4.5 mm. Big wheels lift it. There is a wheel size at which the car stops being a racing car and becomes a tractor, and the rulebook decides where that is. Work out for yourself what the biggest legal wheel therefore is, because it is <strong>not</strong> the 65 mm that Rule 2.7 seems to offer.</p>
+  </div>
+
+  <div class="mic"><b>On the iPad:</b><span>Numbers go in the number boxes. Reasons go in the big boxes, and you can dictate those with the microphone key. Say the number out loud to your team before anyone types it.</span></div>
+
+  <div class="tnote-slot" data-note="p-brief-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="2-2" id="p-bay-body" data-lesson="L2" data-label="Bodywork Bay" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.2</span><span class="role-badge">Bodywork</span><span class="st-strand">Design bay</span></div>
+    <h2>Nose Cone and Main Body</h2>
+    <p class="st-lede">Two parts, both low, both sitting on a frame you cannot change. The body has one job you must not forget: the band has to get past it.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <h3>The band channel is not optional</h3>
+    <p>The elastic band runs from the <strong>hook under the front of the frame</strong> back to the rear axle, where it winds up. Your main body sits on top of the frame, in the band's way. So the underside of your body needs a <strong>channel</strong> cut along its centre line for the band to run through.</p>
+    <p>Make it too narrow and the band rubs, which steals distance and eventually saws through the band. Make the channel <strong>open downwards</strong> and the printer can build it with no supports at all. Minimum 6 mm wide and 4 mm deep, and it runs the whole length of the body.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-bottom:18px">
+    <table>
+      <thead><tr><th>Your dimension</th><th>Smallest</th><th>Biggest</th><th>Reference car</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Nose cone: how far it sticks out</td><td class="num">4.0</td><td class="num">11.0</td><td class="num">7.5</td><td class="num">6.8</td></tr>
+        <tr><td class="dim">Nose cone: width</td><td class="num">20.0</td><td class="num">40.0</td><td class="num">30.0</td><td class="num">6.9</td></tr>
+        <tr><td class="dim">Nose cone: height</td><td class="num">2.0</td><td class="num">10.0</td><td class="num">6.0</td><td class="num">6.10</td></tr>
+        <tr><td class="dim">Body: length</td><td class="num">30.0</td><td class="num">85.0</td><td class="num">70.0</td><td class="num">2.3</td></tr>
+        <tr><td class="dim">Body: width</td><td class="num">20.0</td><td class="num">40.0</td><td class="num">34.0</td><td class="num">6.3</td></tr>
+        <tr><td class="dim">Body: height above the frame</td><td class="num">6.0</td><td class="num">20.0</td><td class="num">12.0</td><td class="num">2.5 <span class="new">new</span></td></tr>
+        <tr><td class="dim">Band channel: width</td><td class="num">6.0</td><td class="num">14.0</td><td class="num">8.0</td><td class="num">6.4 <span class="new">new</span></td></tr>
+        <tr><td class="dim">Band channel: depth</td><td class="num">4.0</td><td class="num">10.0</td><td class="num">5.0</td><td class="num">6.4 <span class="new">new</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Your specification</h3>
+    <div class="specgrid" style="margin-top:12px">
+      <div class="field"><label for="d-nose-proj">Nose projection (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-nose-proj"></div>
+      <div class="field"><label for="d-nose-w">Nose width (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-nose-w"></div>
+      <div class="field"><label for="d-nose-h">Nose height (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-nose-h"></div>
+      <div class="field"><label for="d-body-l">Body length (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-body-l"></div>
+      <div class="field"><label for="d-body-w">Body width (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-body-w"></div>
+      <div class="field"><label for="d-body-h">Body height above frame (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-body-h"></div>
+      <div class="field"><label for="d-chan-w">Band channel width (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-chan-w"></div>
+      <div class="field"><label for="d-chan-d">Band channel depth (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-chan-d"></div>
+    </div>
+    <div class="apply">
+      <h4>Defend your numbers</h4>
+      <p>Pick the <strong>one</strong> number above you argued about most. Why did you land where you did, and what did you give up to get it?</p>
+      <textarea id="d-body-why" rows="4" placeholder="The number we argued about: Where we landed: What we gave up:"></textarea>
+    </div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-bay-body-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="2-3" id="p-bay-aero" data-lesson="L2" data-label="Aero Bay" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.3</span><span class="role-badge only3">Aerodynamicist</span><span class="role-badge only2">Bodywork</span><span class="st-strand">Design bay</span></div>
+    <h2>The Rear Wing</h2>
+    <p class="st-lede">The one part of your car allowed to stand tall. Before you fill in a single number, settle the question you researched in Lesson 1: does this car get a wing at all?</p>
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <h3>Three rules bite on the wing at once</h3>
+    <p><strong>It may not hang too far back.</strong> <span class="ruleref">6.6</span> allows 20 mm behind the rear axle centreline. The axle is already 8.5 mm in from the back of the frame, so your wing may overhang the frame by <strong>11 mm at most</strong>.</p>
+    <p><strong>It may not hide a wheel.</strong> <span class="ruleref">6.3</span> is an open-wheel formula: all four wheels must be visible looking straight down. A wide wing casts a shadow over the rear wheels.</p>
+    <p><strong>Every millimetre it hangs back is a millimetre of distance.</strong> <span class="ruleref">9.2</span> measures to the rearmost point of your stopped car. Your wing is probably the rearmost point.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-bottom:18px">
+    <table>
+      <thead><tr><th>Your dimension</th><th>Smallest</th><th>Biggest</th><th>Reference car</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Wing span, side to side</td><td class="num">20.0</td><td class="num">50.0</td><td class="num">45.0</td><td class="num">6.11</td></tr>
+        <tr><td class="dim">Wing chord, front to back</td><td class="num">6.0</td><td class="num">15.0</td><td class="num">12.0</td><td class="num">6.12</td></tr>
+        <tr><td class="dim">Wing top, height above ground</td><td class="num">30.0</td><td class="num">70.0</td><td class="num">49.0</td><td class="num">6.13</td></tr>
+        <tr><td class="dim">Overhang behind the frame</td><td class="num">0.0</td><td class="num">11.0</td><td class="num">7.5</td><td class="num">6.6</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Your specification</h3>
+    <div class="specgrid" style="margin-top:12px">
+      <div class="field">
+        <label for="d-wing-fit">Are you fitting a wing?</label>
+        <select id="d-wing-fit"><option value="">Choose…</option><option value="yes">Yes</option><option value="no">No — running without bodywork</option></select>
+        <span class="hint">Rule 6.1 makes it optional. "No" is a real answer.</span>
+      </div>
+      <div class="field"><label for="d-wing-span">Wing span (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wing-span"></div>
+      <div class="field"><label for="d-wing-chord">Wing chord (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wing-chord"></div>
+      <div class="field"><label for="d-wing-h">Wing top height above ground (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wing-h"></div>
+      <div class="field"><label for="d-wing-over">Overhang behind the frame (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wing-over"></div>
+    </div>
+    <div class="apply">
+      <h4>Defend your wing</h4>
+      <p>Write the case for the decision you made, and then write what you would have to see in the race results to admit you were wrong.</p>
+      <textarea id="d-wing-why" rows="4" placeholder="We fitted / did not fit a wing because... We would know we were wrong if..."></textarea>
+    </div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-bay-aero-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="2-4" id="p-bay-run" data-lesson="L2" data-label="Running Gear Bay" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.4</span><span class="role-badge">Running Gear</span><span class="st-strand">Design bay</span></div>
+    <h2>Wheels and Tyres</h2>
+    <p class="st-lede">Everything the band does reaches the ground through your four wheels. Measure your own band first, because two of these numbers come out of that measurement and not out of this table.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <h3>Measure the band, then work out the groove</h3>
+    <p>Take the callipers to the rubber band you have been issued. Measure its <strong>width</strong> and its <strong>thickness</strong>. Then:</p>
+    <p><strong>Groove width = band width + 0.4</strong> &nbsp;·&nbsp; <strong>Groove depth = band thickness − 0.5</strong></p>
+    <p>The half millimetre is what makes the tyre stand proud of the rim <span class="ruleref">5.3</span>. Cut the groove as deep as the band is thick and the rubber sits flush, the plastic touches the floor, and the car spins in place. Groove width must also leave <strong>1.5 mm of rim on each side</strong>, so it can never be wider than your wheel width minus 3.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-bottom:18px">
+    <table>
+      <thead><tr><th>Your dimension</th><th>Smallest</th><th>Biggest</th><th>Reference car</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Wheel diameter over the tyre</td><td class="num">35.0</td><td class="num">65.0</td><td class="num">46.0</td><td class="num">2.7</td></tr>
+        <tr><td class="dim">Wheel width</td><td class="num">4.0</td><td class="num">10.0</td><td class="num">5.0</td><td class="num">2.8</td></tr>
+        <tr><td class="dim">Tyre groove width</td><td class="num">1.5</td><td class="num">4.0</td><td class="num">2.0</td><td class="num">5.8</td></tr>
+        <tr><td class="dim">Tyre groove depth</td><td class="num">0.5</td><td class="num">2.0</td><td class="num">1.0</td><td class="num">5.9</td></tr>
+        <tr><td class="dim">Ground clearance this produces</td><td class="num">5.0</td><td class="num">25.0</td><td class="num">18.5</td><td class="num">2.10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Your specification</h3>
+    <div class="specgrid" style="margin-top:12px">
+      <div class="field"><label for="d-band-w">Measured band width (mm)</label><input type="number" step="0.1" inputmode="decimal" id="d-band-w"></div>
+      <div class="field"><label for="d-band-t">Measured band thickness (mm)</label><input type="number" step="0.1" inputmode="decimal" id="d-band-t"></div>
+      <div class="field"><label for="d-wheel-d">Wheel diameter over the tyre (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wheel-d"></div>
+      <div class="field"><label for="d-wheel-w">Wheel width (mm)</label><input type="number" step="0.5" inputmode="decimal" id="d-wheel-w"></div>
+      <div class="field"><label for="d-groove-w">Groove width (mm)</label><input type="number" step="0.1" inputmode="decimal" id="d-groove-w"><span class="hint">Band width + 0.4</span></div>
+      <div class="field"><label for="d-groove-d">Groove depth (mm)</label><input type="number" step="0.1" inputmode="decimal" id="d-groove-d"><span class="hint">Band thickness − 0.5</span></div>
+    </div>
+    <div class="apply">
+      <h4>Defend your wheel</h4>
+      <p>In Lesson 1 you said what size wheel you wanted. Did the rules let you have it? Write what you asked for, what you actually got, and which rule stopped you.</p>
+      <textarea id="d-wheel-why" rows="4" placeholder="We wanted ___ mm. We ended up with ___ mm. The rule that stopped us was..."></textarea>
+    </div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-bay-run-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="2-5" id="p-scrut" data-lesson="L2" data-label="Scrutineering" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.5</span><span class="st-strand">Whole team · live check</span></div>
+    <h2>Scrutineering</h2>
+    <p class="st-lede">The scrutineer does not care how hard you worked. Every number you entered is checked against the rule it has to obey, in the order the card is worked. Fix the reds and come back.</p>
+  </div>
+
+  <div class="tally" id="tally"></div>
+  <div class="scrut" id="scrutList"></div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Mass declaration</h3>
+    <p style="margin-bottom:12px">You will not know this properly until the slicer in Lesson 5. Put your best estimate in now and check it against the limits.</p>
+    <div class="specgrid">
+      <div class="field"><label for="d-mass">Estimated complete car mass (g)</label><input type="number" step="0.5" inputmode="decimal" id="d-mass"></div>
+      <div class="field"><label for="d-ballast">Ballast, if you need it (g)</label><input type="number" step="0.5" inputmode="decimal" id="d-ballast"><span class="hint">Declared and mechanically retained, Rule 3.3.</span></div>
+    </div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-scrut-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="2-6" id="p-sheet" data-lesson="L2" data-label="Design Sheet" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">2.6</span><span class="st-strand">Team deliverable</span></div>
+    <h2>Your Design Sheet</h2>
+    <p class="st-lede">Everything in one place, ready to copy onto the A3 sheet that travels with you for the rest of the unit. Copy or print it before you put the iPad down.</p>
+  </div>
+
+  <div class="callout">
+    <h3>Before you sign it off</h3>
+    <p>Every number on this sheet has to point at a rule or at something you found in Lesson 1. "Because it looks cool" is not a reason a scrutineer will accept, and it is not a reason that will survive race day.</p>
+  </div>
+
+  <div class="card">
+    <div class="specgrid">
+      <div class="field"><label for="b-pred">Our prediction: how far it will travel (mm)</label><input type="number" step="10" inputmode="numeric" id="b-pred"></div>
+      <div class="field"><label for="b-predwhy">What we are basing that on</label><input type="text" autocomplete="off" id="b-predwhy" placeholder="A guess is fine. A reasoned guess is better."></div>
+    </div>
+    <div class="apply">
+      <h4>The big question</h4>
+      <p>Which force do you think will actually limit your car — wheelspin at launch, friction in the bearings, running out of band, running crooked, or air resistance? And how would you prove it?</p>
+      <textarea id="b-force" rows="4"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn btn-go" id="copyBtn">Copy the whole sheet</button>
+      <button class="btn" id="printBtn">Print</button>
+      <button class="btn" id="clearBtn">Clear this device</button>
+      <span class="saved" id="savedMsg"></span>
+    </div>
+  </div>
+
+  <div id="summary" style="margin-top:20px"></div>
+
+  <div class="tnote-slot" data-note="p-sheet-1"></div>
+</section>
+
+</main>
+
+<footer>
+  <p>Band Car Grand Prix · Lessons 1 and 2 of 11 · Companion to the Band Car Formula regulations and the Issue 2 model brief.</p>
+  <p class="foot-2">Your answers are saved in this browser, on this device, and are sent nowhere. Copy or print the design sheet before you finish. · <a href="https://heutalab.com">HeutaLab</a></p>
+</footer>
+
+<script>
+
+(function(){
+  "use strict";
+  var KEY="bandcar-rd-v2";
+  var panels=[].slice.call(document.querySelectorAll(".panel"));
+  var lessonBtns=[].slice.call(document.querySelectorAll(".lesson"));
+  var subnav=document.getElementById("subnav");
+  var saved=document.getElementById("savedMsg");
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ state={}; }
+  function store(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+  var fields=[].slice.call(document.querySelectorAll("textarea, input[type=text], input[type=number], select"));
+  fields.forEach(function(el){
+    if(state[el.id]!==undefined) el.value=state[el.id];
+    function save(){ state[el.id]=el.value; store(); flash("Saved on this device"); queueRefresh(); }
+    el.addEventListener("input",save);
+    el.addEventListener("change",save);
+  });
+
+  var ft, rt, booting=true;
+  /* typing used to rebuild the whole scrutineering card on every keystroke */
+  function queueRefresh(){ clearTimeout(rt); rt=setTimeout(refresh,220); }
+  function flash(m){ if(!saved) return; saved.textContent=m; clearTimeout(ft); ft=setTimeout(function(){saved.textContent="";},1600); }
+
+  /* ---------- navigation ---------- */
+  var currentLesson=state.__lesson||"L1";
+  var currentPanel=state.__panel||"p-team";
+
+  function buildSubnav(){
+    subnav.innerHTML="";
+    panels.filter(function(p){ return p.getAttribute("data-lesson")===currentLesson; })
+      .forEach(function(p){
+        var b=document.createElement("button");
+        b.className="tab"; b.type="button"; b.setAttribute("role","tab");
+        b.innerHTML=p.getAttribute("data-label");
+        b.id="tab-"+p.id; b.setAttribute("aria-controls",p.id);
+        p.setAttribute("aria-labelledby","tab-"+p.id);
+        b.setAttribute("aria-selected", String(p.id===currentPanel));
+        b.tabIndex = (p.id===currentPanel)?0:-1;
+        b.addEventListener("click",function(){ showPanel(p.id); });
+        if(isDone(p)) b.classList.add("done");
+        subnav.appendChild(b);
+      });
+  }
+  function isDone(p){
+    var els=p.querySelectorAll("textarea, input[type=number]");
+    if(!els.length) return false;
+    for(var i=0;i<els.length;i++){ if(!String(els[i].value).trim()) return false; }
+    return true;
+  }
+  function showPanel(id,opts){
+    opts=opts||{};
+    currentPanel=id; state.__panel=id; store();
+    panels.forEach(function(p){ p.hidden = p.id!==id; });
+    buildSubnav();
+    if(!opts.keepUrl) writeHash(id);
+    if(!opts.keepScroll) window.scrollTo(0,0);
+  }
+  function showLesson(l){
+    currentLesson=l; state.__lesson=l; store();
+    lessonBtns.forEach(function(b){ b.setAttribute("aria-selected", String(b.getAttribute("data-lesson")===l)); });
+    var first=panels.filter(function(p){ return p.getAttribute("data-lesson")===l; })[0];
+    showPanel(first.id);
+  }
+  lessonBtns.forEach(function(b){ b.addEventListener("click",function(){ showLesson(b.getAttribute("data-lesson")); }); });
+
+  /* ---------- team size and name ---------- */
+  function applyTeam(){
+    var size=document.getElementById("t-size").value;
+    document.body.classList.remove("size-2","size-3");
+    if(size) document.body.classList.add("size-"+size);
+    var name=document.getElementById("t-name").value.trim();
+    var cls=document.getElementById("t-class").value;
+    var tag=document.getElementById("teamTag");
+    if(name||size){
+      tag.textContent=(name||"Unnamed team")+(size?" · "+size+" people":"")+(cls?" · "+cls.split(" —")[0]:"");
+    } else { tag.textContent="No team yet"; }
+  }
+
+  /* ---------- scrutineering ---------- */
+  function n(id){ var e=document.getElementById(id); if(!e) return null; var v=parseFloat(e.value); return isNaN(v)?null:v; }
+
+  function checks(){
+    var wheel=n("d-wheel-d"), ww=n("d-wheel-w"), gw=n("d-groove-w"), gd=n("d-groove-d");
+    var bw=n("d-band-w"), bt=n("d-band-t");
+    var np=n("d-nose-proj"), nw=n("d-nose-w"), nh=n("d-nose-h");
+    var bl=n("d-body-l"), bWid=n("d-body-w"), bh=n("d-body-h");
+    var cw=n("d-chan-w"), cd=n("d-chan-d");
+    var wingFit=document.getElementById("d-wing-fit").value;
+    var ws=n("d-wing-span"), wc=n("d-wing-chord"), wh=n("d-wing-h"), wo=n("d-wing-over");
+    var mass=n("d-mass"), ball=n("d-ballast");
+
+    var clearance = wheel===null?null:(wheel/2-4.5);
+    var frameTop = clearance===null?null:(clearance+9);
+    var overallL = (85+(np||0)+((wingFit==="no")?0:(wo||0)));
+    var bodyTop = (frameTop!==null&&bh!==null)?(frameTop+bh):null;
+    var overallH = Math.max(bodyTop||0, (wingFit==="no")?0:(wh||0), wheel||0) || null;
+
+    var L=[];
+    function add(what,lim,val,ok,why,unit){
+      L.push({what:what,lim:lim,val:(val===null||val===undefined)?null:val,ok:ok,why:why,unit:unit||"mm"});
+    }
+    function range(what,rule,v,lo,hi,why){
+      add(what, rule+" · "+lo+" to "+hi+" mm", v, v===null?null:(v>=lo&&v<=hi), why);
+    }
+
+    // gauge box first, as the card is worked
+    add("Overall length", "R 2.3 · 60 to 110 mm", overallL, overallL>=60&&overallL<=110,
+        "85 mm frame, plus your nose projection, plus your wing overhang. Every millimetre here is a millimetre given back at the finish under R 9.2.");
+    add("Overall width", "R 2.4 · 70 mm maximum", 54, true,
+        "Set by the frame and axles at 54 mm over the wheels. Nothing you design may be wider than that.");
+    add("Overall height", "R 2.5 · 70 mm maximum", overallH, overallH===null?null:(overallH<=70),
+        "The tallest of your wing, your body top, and your wheels.");
+    add("Wheelbase", "R 2.6 · 40 to 75 mm", 68, true, "Fixed by the base frame. Measured at scrutineering anyway.");
+
+    // mass
+    add("Complete car mass", "R 3.1 · 28 to 60 g", (mass===null?null:(mass+(ball||0))),
+        mass===null?null:((mass+(ball||0))>=28&&(mass+(ball||0))<=60),
+        "Under 28 g you must add declared ballast under R 3.3. A car made entirely of holes spins its wheels instead of moving.", "g");
+
+    // clearance and wheels
+    add("Ground clearance", "R 2.10 · 5 to 25 mm", clearance, clearance===null?null:(clearance>=5&&clearance<=25),
+        "Worked out from your wheel: diameter ÷ 2 − 4.5. You do not set this directly, your wheel sets it for you.");
+    add("Wheel diameter over the tyre", "R 2.7 · 35 to 65 mm, and R 2.10", wheel,
+        wheel===null?null:(wheel>=35&&wheel<=65&&(wheel/2-4.5)<=25&&(wheel/2-4.5)>=5),
+        "R 2.7 allows up to 65 mm. R 2.10 caps ground clearance at 25 mm. Together they cap your wheel at 59.0 mm. Neither rule says 59 on its own.");
+    range("Wheel width","R 2.8",ww,4,10,"Wider tyres grip more and drag more. Formula 1 went narrower for 2026.");
+
+    // tyres
+    add("Tyre groove width", "R 5.8 · 1.5 to 4.0 mm, and ≤ wheel width − 3", gw,
+        gw===null?null:(gw>=1.5&&gw<=4&&(ww===null||gw<=ww-3)),
+        "Band width + 0.4. It must leave 1.5 mm of rim on each side, so it can never be wider than your wheel width minus 3.");
+    add("Tyre groove depth", "R 5.9 · 0.5 to 2.0 mm, and less than the band thickness", gd,
+        gd===null?null:(gd>=0.5&&gd<=2&&(bt===null||gd<bt)),
+        "Band thickness − 0.5. Cut it as deep as the band is thick and the tyre sits flush, the plastic touches the floor, and the car spins on the spot.");
+    if(bw!==null&&gw!==null){
+      add("Groove matches your measured band","Derived · band width + 0.4",Math.round((bw+0.4)*10)/10,Math.abs(gw-(bw+0.4))<0.25,
+          "This checks your groove against the band you actually measured, not against the class default.");
+    }
+
+    // nose and body
+    range("Nose cone projection","R 6.8 and R 6.6",np,4,11,"R 6.6 allows 20 mm ahead of the front axle, and the axle is already 8.5 mm in from the nose face.");
+    range("Nose cone width","R 6.9",nw,20,40,"It may not be wider than the outside of the front wheels.");
+    range("Nose cone height","R 6.10",nh,2,10,"The underside may never drop below the chassis plane, R 6.4.");
+    range("Body length","R 2.3",bl,30,85,"The frame is 85 mm. Your body cannot be longer than the thing it sits on.");
+    range("Body width","R 6.3",bWid,20,40,"All four wheels must still be visible looking straight down.");
+    range("Body height above the frame","R 2.5",bh,6,20,"The body stays low. The wing is the part allowed to stand tall.");
+    range("Band channel width","R 6.4",cw,6,14,"The band runs from the hook to the rear axle, straight through here. Too narrow and it rubs, then it saws.");
+    range("Band channel depth","R 6.4",cd,4,10,"Open downwards, so the printer builds it with no supports at all.");
+
+    // wing
+    if(wingFit==="no"){
+      add("Rear wing","R 6.1 · optional","None fitted",true,
+          "A declared choice, not an omission. Your car is part of the comparison that decides whether bodywork helped anyone at all.");
+    } else {
+      range("Wing span","R 6.11",ws,20,50,"Over 44 mm and the wing starts to shadow the rear wheels, which risks R 6.3.");
+      range("Wing chord","R 6.12",wc,6,15,"Front to back. A deeper wing makes more downforce and more drag.");
+      range("Wing top height","R 6.13",wh,30,70,"Measured from the ground to the top of the wing.");
+      range("Wing overhang behind the frame","R 6.6",wo,0,11,"The rear axle is 8.5 mm in from the back of the frame, and R 6.6 allows 20 mm behind the axle.");
+      if(ws!==null&&ws>44){
+        add("Wheels visible from above","R 6.3 · open-wheel formula",ws,null,
+            "A wing wider than about 44 mm may cover the rear wheels seen from directly above. Check it yourself in the model, because it depends on where you mount it.");
+      }
+    }
+    return L;
+  }
+
+  function refresh(){
+    applyTeam();
+    var list=document.getElementById("scrutList");
+    var tally=document.getElementById("tally");
+    if(!list) return;
+    var L=checks(), p=0,f=0,t=0;
+    list.innerHTML="";
+    L.forEach(function(c){
+      var cls = c.val===null||c.val===undefined ? "todo" : (c.ok===null ? "todo" : (c.ok?"pass":"fail"));
+      if(cls==="pass")p++; else if(cls==="fail")f++; else t++;
+      var verdict = cls==="pass"?"Pass":(cls==="fail"?"Fail":(c.val!==null&&c.ok===null?"Check":"Not yet"));
+      var el=document.createElement("div");
+      el.className="row "+cls;
+      var valTxt = (c.val===null||c.val===undefined) ? "—" : (typeof c.val==="number" ? (Math.round(c.val*10)/10)+" "+c.unit : c.val);
+      el.innerHTML='<div><span class="what"></span><span class="lim"></span></div>'
+                 + '<div class="val"></div><div class="verdict"></div>'
+                 + (cls==="pass"?"":'<div class="why"></div>');
+      el.querySelector(".what").textContent=c.what;
+      el.querySelector(".lim").textContent=c.lim;
+      el.querySelector(".val").textContent=valTxt;
+      el.querySelector(".verdict").textContent=verdict;
+      var why=el.querySelector(".why"); if(why) why.textContent=c.why;
+      list.appendChild(el);
+    });
+    tally.innerHTML='<span class="pill p">'+p+' passed</span><span class="pill f">'+f+' failed</span><span class="pill t">'+t+' not entered</span>';
+    buildSummary();
+    buildSubnav();
+    syncPrint();
+  }
+
+  function buildSummary(){
+    var box=document.getElementById("summary"); if(!box) return;
+    function v(id){ var e=document.getElementById(id); return (e&&String(e.value).trim())?e.value:"—"; }
+    var rows=[
+      ["Team",v("t-name")],["Size",v("t-size")],["Class",v("t-class")],
+      ["Bodywork",v("r-body")],["Aerodynamicist",v("r-aero")],["Running Gear",v("r-run")],
+      ["Wheel diameter",v("d-wheel-d")+" mm"],["Wheel width",v("d-wheel-w")+" mm"],
+      ["Groove",v("d-groove-w")+" × "+v("d-groove-d")+" mm"],
+      ["Nose cone",v("d-nose-proj")+" out, "+v("d-nose-w")+" wide, "+v("d-nose-h")+" high"],
+      ["Body",v("d-body-l")+" × "+v("d-body-w")+" × "+v("d-body-h")+" mm"],
+      ["Band channel",v("d-chan-w")+" × "+v("d-chan-d")+" mm"],
+      ["Rear wing", document.getElementById("d-wing-fit").value==="no" ? "None fitted"
+        : (v("d-wing-span")+" span, "+v("d-wing-chord")+" chord, "+v("d-wing-h")+" high")],
+      ["Estimated mass",v("d-mass")+" g"],["Prediction",v("b-pred")+" mm"]
+    ];
+    var html='<div class="tablewrap"><table><thead><tr><th>Item</th><th>Agreed</th></tr></thead><tbody>';
+    rows.forEach(function(r){ html+='<tr><td class="dim">'+r[0]+'</td><td class="num">'+String(r[1]).replace(/</g,"&lt;")+'</td></tr>'; });
+    html+='</tbody></table></div>';
+    box.innerHTML=html;
+  }
+
+  /* ---------- buttons ---------- */
+  /* The teacher notes are not in this page. They live in teacher-notes.js and
+     load only when the URL asks for them, so there is nothing for a child to
+     press, read in the page, or inherit from whoever used the iPad before. */
+  function teacherAsked(){ return /(^|[?&])teacher($|[=&])/i.test(location.search); }
+  function fillNotes(){
+    var notes=window.BC_TEACHER_NOTES; if(!notes) return;
+    [].slice.call(document.querySelectorAll(".tnote-slot")).forEach(function(slot){
+      var h=notes[slot.getAttribute("data-note")]; if(!h) return;
+      var d=document.createElement("div"); d.className="tnote"; d.innerHTML=h;
+      slot.parentNode.replaceChild(d,slot);
+    });
+  }
+  if(teacherAsked()){
+    document.body.classList.add("teacher");
+    var flag=document.getElementById("teachFlag");
+    if(flag) flag.hidden=false;
+    var s=document.createElement("script");
+    s.src="teacher-notes.js";
+    s.onload=fillNotes;
+    s.onerror=function(){ if(flag) flag.textContent="Teacher notes did not load"; };
+    document.head.appendChild(s);
+  }
+
+  function printScope(research){
+    document.body.classList.toggle("print-research",!!research);
+    syncPrint();
+    window.print();
+  }
+  document.getElementById("printBtn").addEventListener("click",function(){ printScope(false); });
+  document.getElementById("printResearchBtn").addEventListener("click",function(){ printScope(true); });
+  /* Safari on iOS is unreliable about afterprint, so each button sets the scope
+     explicitly rather than trusting this to have cleaned up. */
+  window.addEventListener("afterprint",function(){ document.body.classList.remove("print-research"); });
+
+  /* Erasing a team's whole lesson used to be one tap on a shared iPad. */
+  var clearBtn=document.getElementById("clearBtn"), armed=false, at;
+  function disarm(){ clearTimeout(at); armed=false; clearBtn.textContent="Clear this device"; clearBtn.classList.remove("arm"); }
+  clearBtn.addEventListener("click",function(){
+    if(!armed){
+      armed=true; clearBtn.textContent="Tap again to erase everything"; clearBtn.classList.add("arm");
+      at=setTimeout(disarm,5000); return;
+    }
+    disarm();
+    fields.forEach(function(el){ el.value=""; });
+    state={__lesson:currentLesson,__panel:currentPanel};
+    store(); refresh(); flash("Cleared");
+  });
+
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    function v(id){ var e=document.getElementById(id); return (e&&String(e.value).trim())?String(e.value).trim():"—"; }
+    var out=["BAND CAR GRAND PRIX — DESIGN SHEET",""];
+    out.push("Team: "+v("t-name")+"  ("+v("t-size")+" people, "+v("t-class")+")");
+    out.push("Bodywork: "+v("r-body")+"   Aerodynamicist: "+v("r-aero")+"   Running Gear: "+v("r-run"));
+    out.push("");
+    out.push("SPECIFICATION");
+    out.push("  Wheel: "+v("d-wheel-d")+" mm diameter, "+v("d-wheel-w")+" mm wide");
+    out.push("  Band measured: "+v("d-band-w")+" wide, "+v("d-band-t")+" thick");
+    out.push("  Groove: "+v("d-groove-w")+" wide, "+v("d-groove-d")+" deep");
+    out.push("  Nose cone: "+v("d-nose-proj")+" projection, "+v("d-nose-w")+" wide, "+v("d-nose-h")+" high");
+    out.push("  Body: "+v("d-body-l")+" long, "+v("d-body-w")+" wide, "+v("d-body-h")+" above the frame");
+    out.push("  Band channel: "+v("d-chan-w")+" wide, "+v("d-chan-d")+" deep");
+    out.push("  Rear wing: "+(document.getElementById("d-wing-fit").value==="no"?"none fitted":
+      (v("d-wing-span")+" span, "+v("d-wing-chord")+" chord, "+v("d-wing-h")+" high, "+v("d-wing-over")+" overhang")));
+    out.push("  Mass: "+v("d-mass")+" g, ballast "+v("d-ballast")+" g");
+    out.push("  Prediction: "+v("b-pred")+" mm — "+v("b-predwhy"));
+    out.push("");
+    out.push("SCRUTINEERING");
+    checks().forEach(function(c){
+      var st = (c.val===null||c.val===undefined)?"not entered":(c.ok===null?"check":(c.ok?"PASS":"FAIL"));
+      out.push("  ["+st+"] "+c.what+" — "+c.lim);
+    });
+    out.push("");
+    out.push("DEFENDING OUR NUMBERS");
+    out.push("  Bodywork: "+v("d-body-why"));
+    out.push("  Wing: "+v("d-wing-why"));
+    out.push("  Wheels: "+v("d-wheel-why"));
+    out.push("  Limiting force: "+v("b-force"));
+    out.push("");
+    out.push("LESSON 1 RESEARCH");
+    var sets=[["The Rules","s1"],["Air and the Body","s2"],["Wings and Downforce","s3"],["Wheels and Grip","s4"]];
+    sets.forEach(function(s){
+      out.push(""); out.push(s[0]);
+      for(var q=1;q<=3;q++) out.push("  Q"+q+": "+v(s[1]+"q"+q));
+      out.push("  Apply: "+v(s[1]+"apply"));
+    });
+    var text=out.join("\n");
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ flash("Copied"); },function(){ flash("Copy blocked here — use Print"); });
+    } else { flash("Copy not available here — use Print"); }
+  });
+
+
+  /* ---------- research desk: search modifiers and ticks ---------- */
+  function applyMods(scope){
+    var mods = [].slice.call(scope.querySelectorAll(".mod[aria-pressed='true']"))
+                 .map(function(m){ return m.getAttribute("data-mod"); });
+    var tail = mods.length ? " " + mods.join(" ") : "";
+    [].slice.call(scope.querySelectorAll("a.chip-s")).forEach(function(a){
+      var q = a.getAttribute("data-q") + tail;
+      a.href = "https://www.bing.com/images/search?q=" + encodeURIComponent(q);
+      a.querySelector(".mod-tail").textContent = tail;
+    });
+  }
+  [].slice.call(document.querySelectorAll(".mods")).forEach(function(bar){
+    var scope = bar.closest(".panel");
+    [].slice.call(bar.querySelectorAll(".mod")).forEach(function(m){
+      if(state[scope.id + "|" + m.getAttribute("data-mod")] === "1") m.setAttribute("aria-pressed","true");
+      m.addEventListener("click", function(){
+        var on = m.getAttribute("aria-pressed") === "true";
+        m.setAttribute("aria-pressed", on ? "false" : "true");
+        state[scope.id + "|" + m.getAttribute("data-mod")] = on ? "0" : "1";
+        store(); applyMods(scope);
+      });
+    });
+    applyMods(scope);
+  });
+  [].slice.call(document.querySelectorAll(".tick")).forEach(function(t){
+    if(state[t.id] === "1") t.setAttribute("aria-pressed","true");
+    t.addEventListener("click", function(){
+      var on = t.getAttribute("aria-pressed") === "true";
+      t.setAttribute("aria-pressed", on ? "false" : "true");
+      state[t.id] = on ? "0" : "1"; store();
+    });
+  });
+
+  /* ---------- deep links ---------- */
+  /* Every section has its own address: #1-1 ... #2-6, #r1 ... #r4, so a whole
+     class can be sent straight to one tab. */
+  function slugOf(p){ return p.getAttribute("data-slug")||p.id; }
+  function panelFor(h){
+    h=String(h||"").replace(/^#/,"").toLowerCase(); if(!h) return null;
+    for(var i=0;i<panels.length;i++){
+      if(slugOf(panels[i]).toLowerCase()===h || panels[i].id.toLowerCase()===h) return panels[i];
+    }
+    return null;
+  }
+  function writeHash(id){
+    var p=document.getElementById(id); if(!p) return;
+    var h="#"+slugOf(p); if(location.hash===h) return;
+    try{ booting ? history.replaceState(null,"",h) : history.pushState(null,"",h); }
+    catch(e){ location.hash=h; }
+  }
+  function selectLesson(l){
+    currentLesson=l; state.__lesson=l; store();
+    lessonBtns.forEach(function(b){
+      var on=b.getAttribute("data-lesson")===l;
+      b.setAttribute("aria-selected",String(on)); b.tabIndex=on?0:-1;
+    });
+  }
+  function routeFromUrl(){
+    var p=panelFor(location.hash); if(!p||p.id===currentPanel) return;
+    selectLesson(p.getAttribute("data-lesson"));
+    showPanel(p.id,{keepUrl:true});
+  }
+  window.addEventListener("popstate",routeFromUrl);
+  window.addEventListener("hashchange",routeFromUrl);
+
+  /* ---------- arrow keys along the tabs ---------- */
+  function arrowNav(box,sel){
+    if(!box) return;
+    box.addEventListener("keydown",function(e){
+      if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft") return;
+      var items=[].slice.call(box.querySelectorAll(sel));
+      var i=items.indexOf(document.activeElement); if(i<0) return;
+      e.preventDefault();
+      var next=items[(i+(e.key==="ArrowRight"?1:items.length-1))%items.length];
+      next.focus(); next.click();
+    });
+  }
+  arrowNav(subnav,".tab");
+  arrowNav(document.querySelector(".nav-l1"),".lesson");
+
+  /* ---------- printing ---------- */
+  /* A textarea prints only the lines that fit in the box, so each answer is
+     mirrored into a plain block that the print stylesheet shows instead. */
+  function syncPrint(){
+    fields.forEach(function(el){
+      var m=el.nextElementSibling;
+      if(!m||m.className!=="pmirror"){
+        m=document.createElement("div"); m.className="pmirror";
+        el.parentNode.insertBefore(m,el.nextSibling);
+      }
+      var v = el.tagName==="SELECT"
+        ? (el.selectedIndex>0 ? el.options[el.selectedIndex].text : "")
+        : el.value;
+      m.textContent=String(v).trim()||"\u2014";
+    });
+    var head=document.getElementById("printHead");
+    if(head){
+      var nm=document.getElementById("t-name").value.trim()||"Unnamed team";
+      var cl=document.getElementById("t-class").value;
+      var scope=document.body.classList.contains("print-research") ? "Lesson 1 research" : "Lessons 1 and 2";
+      head.textContent="Band Car Grand Prix · "+nm+(cl?" · "+cl:"")+" · "+scope+" · "+new Date().toLocaleDateString("en-GB");
+    }
+  }
+  window.addEventListener("beforeprint",syncPrint);
+
+  /* ---------- boot ---------- */
+  var savedPanel=state.__panel;
+  var target=panelFor(location.hash);
+  if(target){
+    selectLesson(target.getAttribute("data-lesson"));
+    showPanel(target.id,{keepUrl:true});
+  } else {
+    showLesson(currentLesson);
+    if(savedPanel && document.getElementById(savedPanel)
+       && document.getElementById(savedPanel).getAttribute("data-lesson")===currentLesson){
+      showPanel(savedPanel);
+    }
+  }
+  booting=false;
+  refresh();
+
+  if("serviceWorker" in navigator && window.isSecureContext){
+    window.addEventListener("load",function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
