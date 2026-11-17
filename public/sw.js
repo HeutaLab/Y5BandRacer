@@ -8,7 +8,7 @@
  * every iPad by 9am, and the cached copy only ever appears when the wifi has
  * actually gone away.
  */
-var VERSION = 'bcgp-2026-11-17-3';
+var VERSION = 'bcgp-2026-11-17-4';
 var IMMUTABLE = /\/(fonts|icons)\/|favicon\.svg$/;
 
 var CORE = [

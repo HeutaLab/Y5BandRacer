@@ -298,6 +298,7 @@
   .lang-btn:hover{color:var(--ink)}
   .lang-btn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
   .lang-btn:focus-visible{outline:2px solid var(--petrol);outline-offset:1px}
+  @media (max-width:480px){.langs{border-radius:14px;gap:0}.lang-btn{padding:6px 5px;font-size:12.5px}}
   /* Latin fonts first, so numbers and English names keep the page's look;
      then each script's own system font, which every iPad already has. */
   html:lang(ko){--body:"Source Sans 3","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;--display:"Archivo","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
@@ -305,7 +306,8 @@
   html:lang(ja){--body:"Source Sans 3","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;--display:"Archivo","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif}
   html:lang(zh-Hans){--body:"Source Sans 3","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;--display:"Archivo","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
   /* Chinese headings break at punctuation, not inside a term (对齐格线排列); a long one still wraps if it must */
-  html:lang(zh-Hans) :is(h1,h2){word-break:keep-all;overflow-wrap:anywhere}
+  html:lang(zh-Hans) :is(h1,h2),html:lang(zh-Hant) :is(h1,h2){word-break:keep-all;overflow-wrap:anywhere}
+  html:lang(zh-Hant){--body:"Source Sans 3","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--display:"Archivo","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
   html:lang(th){--body:"Source Sans 3","Thonburi","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;--display:"Archivo","Thonburi","Noto Sans Thai","Leelawadee UI",sans-serif}
   html:lang(th) body{line-height:1.7}
   /* letter-spacing pulls Thai vowels and tone marks away from their letters */
@@ -510,11 +512,12 @@
       <h1>The Constructor's Brief</h1>
     </div>
     <div class="mast-meta">
-      <div class="langs" role="group" aria-label="Language · 언어 · 言語 · 语言 · ภาษา">
+      <div class="langs" role="group" aria-label="Language · 언어 · 言語 · 语言 · 語言 · ภาษา">
         <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="true">English</button>
         <button type="button" class="lang-btn" data-lang="ko" lang="ko" aria-pressed="false">한국어</button>
         <button type="button" class="lang-btn" data-lang="ja" lang="ja" aria-pressed="false">日本語</button>
-        <button type="button" class="lang-btn" data-lang="zh" lang="zh-Hans" aria-pressed="false">中文</button>
+        <button type="button" class="lang-btn" data-lang="zh" lang="zh-Hans" aria-pressed="false">简体中文</button>
+        <button type="button" class="lang-btn" data-lang="zh-hant" lang="zh-Hant-TW" aria-pressed="false">繁體中文</button>
         <button type="button" class="lang-btn" data-lang="th" lang="th" aria-pressed="false">ไทย</button>
       </div>
       <span class="teamtag" id="teamTag">No team yet</span>
@@ -1784,7 +1787,7 @@
      i18n/<code>.json as { "English text or HTML": "translation" }, fetched only
      when chosen. Text the script writes goes through T(); {name} fills a value. */
   var LANG_KEY="bandcar-lang";
-  var HTML_LANG={en:"en-GB",ko:"ko",ja:"ja",zh:"zh-Hans",th:"th"};
+  var HTML_LANG={en:"en-GB",ko:"ko",ja:"ja",zh:"zh-Hans","zh-hant":"zh-Hant-TW",th:"th"};
   var dict={}, lang="en";
   function T(s,vars){
     var r=(lang!=="en"&&Object.prototype.hasOwnProperty.call(dict,s))?dict[s]:s;
@@ -2340,7 +2343,7 @@
 
   collectUnits(document.body);
   (function(){
-    var m=/[?&]lang=([a-z]{2})\b/i.exec(location.search), code=null;
+    var m=/[?&]lang=([a-z]{2}(?:-[a-z]{4})?)(?![a-z-])/i.exec(location.search), code=null;
     if(m&&HTML_LANG[m[1].toLowerCase()]) code=m[1].toLowerCase();
     var savedLang=null; try{ savedLang=localStorage.getItem(LANG_KEY); }catch(e){}
     if(code) setLang(code,true);

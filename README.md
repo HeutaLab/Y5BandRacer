@@ -113,10 +113,11 @@ it is the cache: hard-reload, or bump `VERSION` in `sw.js`.
 
 ## Languages
 
-English, Korean, Japanese, Chinese (Simplified) and Thai, chosen with the switch
-at the top right. The choice is kept on the device under `bandcar-lang`
+English, Korean, Japanese, Chinese (Simplified, for mainland families, and
+Traditional with Taiwan wording, for Taiwanese families) and Thai, chosen with
+the switch at the top right. The choice is kept on the device under `bandcar-lang`
 (separate from the answers, so **Clear this device** does not reset it), and
-`?lang=ko` (or `ja`, `zh`, `th`, `en`) in a link sets it.
+`?lang=ko` (or `ja`, `zh`, `zh-hant`, `th`, `en`) in a link sets it.
 
 English is the page itself. Each other language is `public/i18n/<code>.json`,
 `{ "English text or HTML": "translation" }`, fetched only when chosen. At boot

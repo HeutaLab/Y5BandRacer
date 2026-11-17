@@ -83,3 +83,5 @@ The rest is polish.
 ## After review
 
 17 November 2026: the term for knolling changed from 直角排列 to 对齐格线排列 at Glenn's request (he gave it as 對齊格線排列; the page is Simplified Chinese, so it is written in Simplified characters). "（knolling）" stays in brackets after it in the same three places. Eight lines changed.
+
+Also 17 November 2026: k0563 said the front axle is 8.5 mm from the front of the car (车头前端), which a child reads as the nose tip; it is the front of the frame, now 离底盘前端. Found while making the Traditional version.

@@ -1,7 +1,7 @@
 # Translations
 
-The page's Korean, Japanese, Chinese (Simplified) and Thai text lives in
-`public/i18n/<code>.json`. This folder is the record of how it was made on
+The page's Korean, Japanese, Chinese (Simplified `zh`, and Traditional with
+Taiwan wording `zh-hant`) and Thai text lives in `public/i18n/<code>.json`. This folder is the record of how it was made on
 17 November 2026, and is not published.
 
 - `GUIDELINES.md`: the brief each translator worked from.
@@ -19,6 +19,7 @@ line by line by a separate reviewer:
 | Japanese | 54 |
 | Chinese | 25 |
 | Thai | 22 |
+| Traditional Chinese (Taiwan), adapted from the reviewed Simplified | 16 |
 
 Every line was then checked by script, for the same HTML tags, numbers,
 {placeholders} and keyboard keys as the English, and in the browser, for full
