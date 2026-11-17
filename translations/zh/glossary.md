@@ -98,7 +98,7 @@ One chosen term per English term. Style: full-width Chinese punctuation (，。�
 
 | English | Chinese | Notes |
 |---|---|---|
-| knolling / knoll / knolled | 直角排列 / 直角排列 / 已直角排列 | "(knolling)" added in brackets the first time on the Knolling tab and on the Hand In tab |
+| knolling / knoll / knolled | 对齐格线排列 / 对齐格线排列 / 已对齐格线排列 | Glenn's choice (17 Nov 2026), replacing 直角排列. "（knolling）" follows it in brackets on the Knolling heading and definition and on the Hand In tab |
 | workplane | 工作平面 | |
 | print plate / printer plate / plate | 打印板 | |
 | supports | 支撑 | |

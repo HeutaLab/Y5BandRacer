@@ -79,3 +79,7 @@ The rest is polish.
 - **直角排列（knolling）**: clear, but it is a made-up term. Check that pupils link it to the pictures.
 - **Tab widths on the iPad**: 离地间隙与牵引钩 (k0400, 8 characters) and 翼与下压力 (k0080) are the longest tab names. Check they do not wrap badly.
 - Whether the school iPads run Safari in Chinese or English: the brackets in k0141 and k0183 cover both, but the order (English first) assumes English menus.
+
+## After review
+
+17 November 2026: the term for knolling changed from 直角排列 to 对齐格线排列 at Glenn's request (he gave it as 對齊格線排列; the page is Simplified Chinese, so it is written in Simplified characters). "（knolling）" stays in brackets after it in the same three places. Eight lines changed.

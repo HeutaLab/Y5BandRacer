@@ -304,6 +304,8 @@
   html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
   html:lang(ja){--body:"Source Sans 3","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;--display:"Archivo","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif}
   html:lang(zh-Hans){--body:"Source Sans 3","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;--display:"Archivo","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+  /* Chinese headings break at punctuation, not inside a term (对齐格线排列); a long one still wraps if it must */
+  html:lang(zh-Hans) :is(h1,h2){word-break:keep-all;overflow-wrap:anywhere}
   html:lang(th){--body:"Source Sans 3","Thonburi","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;--display:"Archivo","Thonburi","Noto Sans Thai","Leelawadee UI",sans-serif}
   html:lang(th) body{line-height:1.7}
   /* letter-spacing pulls Thai vowels and tone marks away from their letters */
