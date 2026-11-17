@@ -292,6 +292,25 @@
   footer a{color:var(--petrol)}
 
 
+  /* ---------- languages ---------- */
+  .langs{display:flex;flex-wrap:wrap;gap:2px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:2px}
+  .lang-btn{font-family:var(--body);font-size:13.5px;font-weight:600;line-height:1.2;background:transparent;color:var(--ink-2);border:0;border-radius:999px;padding:6px 11px;min-height:32px;cursor:pointer}
+  .lang-btn:hover{color:var(--ink)}
+  .lang-btn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+  .lang-btn:focus-visible{outline:2px solid var(--petrol);outline-offset:1px}
+  /* Latin fonts first, so numbers and English names keep the page's look;
+     then each script's own system font, which every iPad already has. */
+  html:lang(ko){--body:"Source Sans 3","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;--display:"Archivo","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+  html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
+  html:lang(ja){--body:"Source Sans 3","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;--display:"Archivo","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif}
+  html:lang(zh-Hans){--body:"Source Sans 3","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;--display:"Archivo","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+  html:lang(th){--body:"Source Sans 3","Thonburi","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;--display:"Archivo","Thonburi","Noto Sans Thai","Leelawadee UI",sans-serif}
+  html:lang(th) body{line-height:1.7}
+  /* letter-spacing pulls Thai vowels and tone marks away from their letters */
+  html:lang(th) *{letter-spacing:normal!important}
+  /* the small mono labels are sized for Latin capitals; other scripts need a little more */
+  html:not([lang|="en"]) :is(.lesson .n,.eyebrow,.st-strand,.role-badge,.col-h,.tk,.field label,.apply h4,.rgroup>h3,.mods .lbl,thead th,.row .lim,.callout h3,.tnote h4){font-size:12px}
+
   /* ---------- final build: finishing the car in Tinkercad ---------- */
   /* Drawing tokens. Tyres stay dark and plates stay plate-coloured in both themes. */
   :root{
@@ -489,6 +508,13 @@
       <h1>The Constructor's Brief</h1>
     </div>
     <div class="mast-meta">
+      <div class="langs" role="group" aria-label="Language · 언어 · 言語 · 语言 · ภาษา">
+        <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="true">English</button>
+        <button type="button" class="lang-btn" data-lang="ko" lang="ko" aria-pressed="false">한국어</button>
+        <button type="button" class="lang-btn" data-lang="ja" lang="ja" aria-pressed="false">日本語</button>
+        <button type="button" class="lang-btn" data-lang="zh" lang="zh-Hans" aria-pressed="false">中文</button>
+        <button type="button" class="lang-btn" data-lang="th" lang="th" aria-pressed="false">ไทย</button>
+      </div>
       <span class="teamtag" id="teamTag">No team yet</span>
       <span class="teachflag" id="teachFlag" hidden>Teacher notes on</span>
     </div>
@@ -541,8 +567,8 @@
         <label for="t-class">Class</label>
         <select id="t-class">
           <option value="">Choose…</option>
-          <option>Class A — Winder</option>
-          <option>Class B — Hook</option>
+          <option value="Class A — Winder">Class A — Winder</option>
+          <option value="Class B — Hook">Class B — Hook</option>
         </select>
         <span class="hint">Rules 1.2 and 1.3.</span>
       </div>
@@ -1750,6 +1776,20 @@
 (function(){
   "use strict";
   var KEY="bandcar-rd-v2";
+
+  /* ---------- languages: the translator ----------
+     English is the page itself. Korean, Japanese, Chinese and Thai live in
+     i18n/<code>.json as { "English text or HTML": "translation" }, fetched only
+     when chosen. Text the script writes goes through T(); {name} fills a value. */
+  var LANG_KEY="bandcar-lang";
+  var HTML_LANG={en:"en-GB",ko:"ko",ja:"ja",zh:"zh-Hans",th:"th"};
+  var dict={}, lang="en";
+  function T(s,vars){
+    var r=(lang!=="en"&&Object.prototype.hasOwnProperty.call(dict,s))?dict[s]:s;
+    if(vars) r=r.replace(/\{(\w+)\}/g,function(m,k){ return vars[k]!==undefined?vars[k]:m; });
+    return r;
+  }
+  window.BC_I18N={t:T};
   var panels=[].slice.call(document.querySelectorAll(".panel"));
   var lessonBtns=[].slice.call(document.querySelectorAll(".lesson"));
   var subnav=document.getElementById("subnav");
@@ -1761,7 +1801,7 @@
   var fields=[].slice.call(document.querySelectorAll("textarea, input[type=text], input[type=number], select"));
   fields.forEach(function(el){
     if(state[el.id]!==undefined) el.value=state[el.id];
-    function save(){ state[el.id]=el.value; store(); flash("Saved on this device"); queueRefresh(); }
+    function save(){ state[el.id]=el.value; store(); flash(T("Saved on this device")); queueRefresh(); }
     el.addEventListener("input",save);
     el.addEventListener("change",save);
   });
@@ -1825,9 +1865,10 @@
     var name=document.getElementById("t-name").value.trim();
     var cls=document.getElementById("t-class").value;
     var tag=document.getElementById("teamTag");
+    /* the short class names, for the extractor: T("Class A") T("Class B") */
     if(name||size){
-      tag.textContent=(name||"Unnamed team")+(size?" · "+size+" people":"")+(cls?" · "+cls.split(" —")[0]:"");
-    } else { tag.textContent="No team yet"; }
+      tag.textContent=(name||T("Unnamed team"))+(size?" · "+T("{n} people",{n:size}):"")+(cls?" · "+T(cls.split(" —")[0]):"");
+    } else { tag.textContent=T("No team yet"); }
   }
 
   /* ---------- scrutineering ---------- */
@@ -1851,10 +1892,12 @@
 
     var L=[];
     function add(what,lim,val,ok,why,unit){
-      L.push({what:what,lim:lim,val:(val===null||val===undefined)?null:val,ok:ok,why:why,unit:unit||"mm"});
+      L.push({what:what,lim:lim,limT:T(lim),val:(val===null||val===undefined)?null:val,ok:ok,why:why,unit:unit||"mm"});
     }
+    /* checks() keeps its words in English, for the copied sheet; refresh() translates them */
     function range(what,rule,v,lo,hi,why){
       add(what, rule+" · "+lo+" to "+hi+" mm", v, v===null?null:(v>=lo&&v<=hi), why);
+      L[L.length-1].limT=T("{rule} · {lo} to {hi} mm",{rule:T(rule),lo:lo,hi:hi});
     }
 
     // gauge box first, as the card is worked
@@ -1928,21 +1971,21 @@
     L.forEach(function(c){
       var cls = c.val===null||c.val===undefined ? "todo" : (c.ok===null ? "todo" : (c.ok?"pass":"fail"));
       if(cls==="pass")p++; else if(cls==="fail")f++; else t++;
-      var verdict = cls==="pass"?"Pass":(cls==="fail"?"Fail":(c.val!==null&&c.ok===null?"Check":"Not yet"));
+      var verdict = cls==="pass"?T("Pass"):(cls==="fail"?T("Fail"):(c.val!==null&&c.ok===null?T("Check"):T("Not yet")));
       var el=document.createElement("div");
       el.className="row "+cls;
-      var valTxt = (c.val===null||c.val===undefined) ? "—" : (typeof c.val==="number" ? (Math.round(c.val*10)/10)+" "+c.unit : c.val);
+      var valTxt = (c.val===null||c.val===undefined) ? "—" : (typeof c.val==="number" ? (Math.round(c.val*10)/10)+" "+c.unit : T(c.val));
       el.innerHTML='<div><span class="what"></span><span class="lim"></span></div>'
                  + '<div class="val"></div><div class="verdict"></div>'
                  + (cls==="pass"?"":'<div class="why"></div>');
-      el.querySelector(".what").textContent=c.what;
-      el.querySelector(".lim").textContent=c.lim;
+      el.querySelector(".what").textContent=T(c.what);
+      el.querySelector(".lim").textContent=c.limT;
       el.querySelector(".val").textContent=valTxt;
       el.querySelector(".verdict").textContent=verdict;
-      var why=el.querySelector(".why"); if(why) why.textContent=c.why;
+      var why=el.querySelector(".why"); if(why) why.textContent=T(c.why);
       list.appendChild(el);
     });
-    tally.innerHTML='<span class="pill p">'+p+' passed</span><span class="pill f">'+f+' failed</span><span class="pill t">'+t+' not entered</span>';
+    tally.innerHTML='<span class="pill p">'+T("{n} passed",{n:p})+'</span><span class="pill f">'+T("{n} failed",{n:f})+'</span><span class="pill t">'+T("{n} not entered",{n:t})+'</span>';
     buildSummary();
     buildSubnav();
     syncPrint();
@@ -1952,19 +1995,19 @@
     var box=document.getElementById("summary"); if(!box) return;
     function v(id){ var e=document.getElementById(id); return (e&&String(e.value).trim())?e.value:"—"; }
     var rows=[
-      ["Team",v("t-name")],["Size",v("t-size")],["Class",v("t-class")],
+      ["Team",v("t-name")],["Size",v("t-size")],["Class",T(v("t-class"))],
       ["Bodywork",v("r-body")],["Aerodynamicist",v("r-aero")],["Running Gear",v("r-run")],
       ["Wheel diameter",v("d-wheel-d")+" mm"],["Wheel width",v("d-wheel-w")+" mm"],
       ["Groove",v("d-groove-w")+" × "+v("d-groove-d")+" mm"],
-      ["Nose cone",v("d-nose-proj")+" out, "+v("d-nose-w")+" wide, "+v("d-nose-h")+" high"],
+      ["Nose cone",T("{a} out, {b} wide, {c} high",{a:v("d-nose-proj"),b:v("d-nose-w"),c:v("d-nose-h")})],
       ["Body",v("d-body-l")+" × "+v("d-body-w")+" × "+v("d-body-h")+" mm"],
       ["Band channel",v("d-chan-w")+" × "+v("d-chan-d")+" mm"],
-      ["Rear wing", document.getElementById("d-wing-fit").value==="no" ? "None fitted"
-        : (v("d-wing-span")+" span, "+v("d-wing-chord")+" chord, "+v("d-wing-h")+" high")],
+      ["Rear wing", document.getElementById("d-wing-fit").value==="no" ? T("None fitted")
+        : T("{a} span, {b} chord, {c} high",{a:v("d-wing-span"),b:v("d-wing-chord"),c:v("d-wing-h")})],
       ["Estimated mass",v("d-mass")+" g"],["Prediction",v("b-pred")+" mm"]
     ];
-    var html='<div class="tablewrap"><table><thead><tr><th>Item</th><th>Agreed</th></tr></thead><tbody>';
-    rows.forEach(function(r){ html+='<tr><td class="dim">'+r[0]+'</td><td class="num">'+String(r[1]).replace(/</g,"&lt;")+'</td></tr>'; });
+    var html='<div class="tablewrap"><table><thead><tr><th>'+T("Item")+'</th><th>'+T("Agreed")+'</th></tr></thead><tbody>';
+    rows.forEach(function(r){ html+='<tr><td class="dim">'+T(r[0]).replace(/</g,"&lt;")+'</td><td class="num">'+String(r[1]).replace(/</g,"&lt;")+'</td></tr>'; });
     html+='</tbody></table></div>';
     box.innerHTML=html;
   }
@@ -1989,7 +2032,7 @@
     var s=document.createElement("script");
     s.src="teacher-notes.js";
     s.onload=fillNotes;
-    s.onerror=function(){ if(flag) flag.textContent="Teacher notes did not load"; };
+    s.onerror=function(){ if(flag) flag.textContent=T("Teacher notes did not load"); };
     document.head.appendChild(s);
   }
 
@@ -2014,16 +2057,16 @@
 
   /* Erasing a team's whole lesson used to be one tap on a shared iPad. */
   var clearBtn=document.getElementById("clearBtn"), armed=false, at;
-  function disarm(){ clearTimeout(at); armed=false; clearBtn.textContent="Clear this device"; clearBtn.classList.remove("arm"); }
+  function disarm(){ clearTimeout(at); armed=false; clearBtn.textContent=T("Clear this device"); clearBtn.classList.remove("arm"); }
   clearBtn.addEventListener("click",function(){
     if(!armed){
-      armed=true; clearBtn.textContent="Tap again to erase everything"; clearBtn.classList.add("arm");
+      armed=true; clearBtn.textContent=T("Tap again to erase everything"); clearBtn.classList.add("arm");
       at=setTimeout(disarm,5000); return;
     }
     disarm();
     fields.forEach(function(el){ el.value=""; });
     state={__lesson:currentLesson,__panel:currentPanel};
-    store(); refresh(); flash("Cleared");
+    store(); refresh(); flash(T("Cleared"));
   });
 
   document.getElementById("copyBtn").addEventListener("click",function(){
@@ -2065,8 +2108,8 @@
     });
     var text=out.join("\n");
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ flash("Copied"); },function(){ flash("Copy blocked here — use Print"); });
-    } else { flash("Copy not available here — use Print"); }
+      navigator.clipboard.writeText(text).then(function(){ flash(T("Copied")); },function(){ flash(T("Copy blocked here — use Print")); });
+    } else { flash(T("Copy not available here — use Print")); }
   });
 
 
@@ -2175,11 +2218,107 @@
         : (bc.contains("print-finish") || (bc.contains("now-f") && !bc.contains("print-all"))) ? "Finishing guide"
         : "Lessons 1 and 2";
       /* a blank finishing guide is a class handout, so it carries no team */
-      var who=(scope==="Finishing guide"&&!named&&!cl) ? "" : nm+(cl?" · "+cl:"")+" · ";
-      head.textContent="Band Car Grand Prix · "+who+scope+" · "+new Date().toLocaleDateString("en-GB");
+      var who=(scope==="Finishing guide"&&!named&&!cl) ? "" : (named||T("Unnamed team"))+(cl?" · "+T(cl):"")+" · ";
+      head.textContent=T("Band Car Grand Prix")+" · "+who+T(scope)+" · "+new Date().toLocaleDateString(HTML_LANG[lang]);
     }
   }
   window.addEventListener("beforeprint",syncPrint);
+
+  /* ---------- languages: swapping the page's own text ----------
+     A "unit" is the smallest element whose content is text and inline tags
+     (strong, span, kbd, a...), keyed by its English HTML with the spaces
+     squeezed. Attributes people read (placeholder, aria-label, data-label for
+     the tabs) are units too. Anything the script rebuilds is skipped here and
+     translated where it is written. */
+  var I18N_SKIP="script,style,textarea,input,.tnote,.tnote-slot,.pmirror,.langs,a.chip-s,#printHead,#teamTag,#subnav,#scrutList,#tally,#summary,#finCalc,#savedMsg";
+  var I18N_INLINE={STRONG:1,B:1,EM:1,I:1,SPAN:1,KBD:1,BR:1,A:1,SMALL:1,SUP:1,SUB:1,CODE:1,ABBR:1,tspan:1};
+  var I18N_ATTRS=["placeholder","aria-label","title","alt","data-label"];
+  var units=[], TITLE_EN=document.title, langCache={}, wantLang="en";
+  function squeeze(t){ return String(t).replace(/\s+/g," ").trim(); }
+  function wordy(t){ return /[A-Za-z]{2}/.test(t); }
+  function collectUnits(el){
+    if(el.nodeType!==1) return;
+    /* answer boxes are skipped, but their grey example text is read */
+    if(el.matches("textarea,input")){
+      var ph=el.getAttribute("placeholder");
+      if(ph&&wordy(ph)) units.push({el:el,attr:"placeholder",src:ph,key:squeeze(ph)});
+      return;
+    }
+    if(el.matches(I18N_SKIP)) return;
+    I18N_ATTRS.forEach(function(a){
+      var v=el.getAttribute(a); if(v&&wordy(v)) units.push({el:el,attr:a,src:v,key:squeeze(v)});
+    });
+    var kids=el.children, inline=true;
+    for(var i=0;i<kids.length;i++){ if(!I18N_INLINE[kids[i].tagName]||kids[i].matches(I18N_SKIP)){ inline=false; break; } }
+    if(inline&&wordy(el.textContent)&&!el.querySelector("[id]")){
+      units.push({el:el,src:el.innerHTML,key:squeeze(el.innerHTML)});
+      return;
+    }
+    for(var j=0;j<el.childNodes.length;j++){
+      var c=el.childNodes[j];
+      if(c.nodeType===3){ if(wordy(c.nodeValue)) units.push({node:c,src:c.nodeValue,key:squeeze(c.nodeValue)}); }
+      else collectUnits(c);
+    }
+  }
+  function has(k){ return Object.prototype.hasOwnProperty.call(dict,k); }
+  function applyUnits(){
+    units.forEach(function(u){
+      var out=(lang!=="en"&&has(u.key))?dict[u.key]:null;
+      if(u.node){
+        var m=/^(\s*)[\s\S]*?(\s*)$/.exec(u.src);
+        u.node.nodeValue = out===null ? u.src : m[1]+out+m[2];
+      } else if(u.attr){
+        u.el.setAttribute(u.attr, out===null ? u.src : out);
+      } else {
+        var html = out===null ? u.src : out;
+        if(u.el.innerHTML!==html) u.el.innerHTML=html;
+      }
+    });
+  }
+  function markLangButtons(){
+    [].slice.call(document.querySelectorAll(".lang-btn")).forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang")===lang));
+    });
+  }
+  function afterLang(){
+    applyUnits();
+    document.documentElement.lang=HTML_LANG[lang];
+    document.title=T(TITLE_EN);
+    markLangButtons();
+    if(!armed) disarm();
+    refresh();
+    if(window.BC_finCalc) window.BC_finCalc();
+  }
+  function setLang(code,remember){
+    if(!HTML_LANG[code]) code="en";
+    wantLang=code;
+    if(remember){ try{ localStorage.setItem(LANG_KEY,code); }catch(e){} }
+    if(code==="en"){ dict={}; lang="en"; afterLang(); return; }
+    if(langCache[code]){ dict=langCache[code]; lang=code; afterLang(); return; }
+    fetch("i18n/"+code+".json",{cache:"no-cache"})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(d){ langCache[code]=d; if(wantLang===code){ dict=d; lang=code; afterLang(); } })
+      .catch(function(){ markLangButtons(); });
+  }
+  [].slice.call(document.querySelectorAll(".lang-btn")).forEach(function(b){
+    b.addEventListener("click",function(){ setLang(b.getAttribute("data-lang"),true); });
+  });
+  /* For checking a translation: which units have no entry in the open language. */
+  window.BC_I18N.missing=function(){
+    var seen={}, out=[];
+    units.forEach(function(u){ if(lang!=="en"&&!has(u.key)&&!seen[u.key]){ seen[u.key]=1; out.push(u.key); } });
+    return out;
+  };
+  window.BC_I18N.keys=function(){
+    var seen={}, out=[];
+    units.forEach(function(u){
+      if(seen[u.key]) return; seen[u.key]=1;
+      var p=(u.el||u.node.parentNode).closest(".panel");
+      out.push({key:u.key, where:(p?p.getAttribute("data-label")+" ("+(p.getAttribute("data-slug")||p.id)+")":"page frame"),
+                kind:u.attr?("attribute "+u.attr):((u.el&&u.el.closest("svg"))?"drawing label":((u.el||u.node.parentNode).tagName.toLowerCase()))});
+    });
+    return out;
+  };
 
   /* ---------- boot ---------- */
   var savedPanel=state.__panel;
@@ -2197,6 +2336,15 @@
   booting=false;
   refresh();
 
+  collectUnits(document.body);
+  (function(){
+    var m=/[?&]lang=([a-z]{2})\b/i.exec(location.search), code=null;
+    if(m&&HTML_LANG[m[1].toLowerCase()]) code=m[1].toLowerCase();
+    var savedLang=null; try{ savedLang=localStorage.getItem(LANG_KEY); }catch(e){}
+    if(code) setLang(code,true);
+    else if(savedLang&&savedLang!=="en") setLang(savedLang,false);
+  })();
+
   if("serviceWorker" in navigator && window.isSecureContext){
     window.addEventListener("load",function(){
       navigator.serviceWorker.register("sw.js").catch(function(){});
@@ -2211,6 +2359,7 @@
 (function(){
   "use strict";
   var out=document.getElementById("finCalc"); if(!out) return;
+  var T=(window.BC_I18N&&window.BC_I18N.t)||function(s){ return s; };
   var IDS=["f-wd","f-ww","f-bwf","f-bwr"];
   function num(id){ var e=document.getElementById(id); if(!e) return null; var v=parseFloat(e.value); return isNaN(v)?null:v; }
   function mm(v){ return (Math.round(v*10)/10)+" mm"; }
@@ -2225,10 +2374,10 @@
     if(why) el.querySelector(".why").textContent=why;
     out.appendChild(el);
   }
-  function use(what,how,v){ if(v===null) row("todo",what,how,"—","Not yet"); else row("info",what,how,mm(v),"Use this"); }
+  function use(what,how,v){ if(v===null) row("todo",T(what),T(how),"—",T("Not yet")); else row("info",T(what),T(how),mm(v),T("Use this")); }
   function check(what,lim,v,ok,why){
-    if(v===null){ row("todo",what,lim,"—","Not yet"); return; }
-    row(ok?"pass":"fail",what,lim,mm(v),ok?"Pass":"Fail",ok?"":why);
+    if(v===null){ row("todo",T(what),T(lim),"—",T("Not yet")); return; }
+    row(ok?"pass":"fail",T(what),T(lim),mm(v),ok?T("Pass"):T("Fail"),ok?"":T(why));
   }
   function calc(){
     var wd=num("f-wd"), ww=num("f-ww"), bf=num("f-bwf"), br=num("f-bwr");
@@ -2239,12 +2388,14 @@
     use("Raise the bushing to","Axle height − 5",wd===null?null:wd/2-5);
     use("Raise the axle hole to","Axle height − 3",wd===null?null:wd/2-3);
     use("Push-on wheel hole depth","Wheel width − 1",ww===null?null:ww-1);
-    [["Front",bf],["Rear",br]].forEach(function(a){
-      var bl=a[1]===null?null:a[1]+4;
-      use(a[0]+" bushing length","Body width + 4",bl);
-      use(a[0]+" axle, out of the fixed wheel","Bushing + 2 mm of gaps + push-on hole",(bl===null||ww===null)?null:bl+2+ww-1);
+    /* whole phrases per axle, so each language can order the words its own way */
+    [[bf,"Front bushing length","Front axle, out of the fixed wheel","Front wheels, outside to outside"],
+     [br,"Rear bushing length","Rear axle, out of the fixed wheel","Rear wheels, outside to outside"]].forEach(function(a){
+      var bl=a[0]===null?null:a[0]+4;
+      use(a[1],"Body width + 4",bl);
+      use(a[2],"Bushing + 2 mm of gaps + push-on hole",(bl===null||ww===null)?null:bl+2+ww-1);
       var across=(bl===null||ww===null)?null:bl+2+2*ww;
-      check(a[0]+" wheels, outside to outside","80 mm maximum",across,across!==null&&across<=80,
+      check(a[3],"80 mm maximum",across,across!==null&&across<=80,
         "Too wide. Make the body narrower where this axle goes through, or use thinner wheels.");
     });
   }
@@ -2252,6 +2403,7 @@
   document.addEventListener("change",function(e){ if(IDS.indexOf(e.target.id)>=0) calc(); });
   var clr=document.getElementById("clearBtn");
   if(clr) clr.addEventListener("click",function(){ setTimeout(calc,0); });
+  window.BC_finCalc=calc;
   calc();
 })();
 </script>

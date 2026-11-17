@@ -111,6 +111,32 @@ it is the cache: hard-reload, or bump `VERSION` in `sw.js`.
   URL falls back to the element id.
 - **A teacher note** — it lives in `teacher-notes.js`, keyed `panelid-1`.
 
+## Languages
+
+English, Korean, Japanese, Chinese (Simplified) and Thai, chosen with the switch
+at the top right. The choice is kept on the device under `bandcar-lang`
+(separate from the answers, so **Clear this device** does not reset it), and
+`?lang=ko` (or `ja`, `zh`, `th`, `en`) in a link sets it.
+
+English is the page itself. Each other language is `public/i18n/<code>.json`,
+`{ "English text or HTML": "translation" }`, fetched only when chosen. At boot
+the page records every "unit": the smallest element whose content is text and
+inline tags, keyed by its English HTML with spaces squeezed, plus the
+`placeholder`, `aria-label` and `data-label` attributes people read. Choosing a
+language swaps each unit for its entry; choosing English puts the original
+back exactly. Text the script writes (scrutineering rows, the calculator, the
+team tag, messages) goes through `T()`. The copied design sheet and the teacher
+notes stay in English.
+
+**When you change English text, the translations no longer match it**, and
+that piece shows in English until it is translated again. To find them, open
+the page in a language and run `BC_I18N.missing()` in the console.
+`BC_I18N.keys()` lists every unit, which is how the catalogue was made.
+
+The translations were made on 17 November 2026: each language was translated,
+self-checked, then checked line by line by a second, independent reviewer, then
+checked by script for tags, numbers and placeholders.
+
 ## The final build
 
 The Finish the car lesson (`data-lesson="F"`, added 17 November 2026) takes a
