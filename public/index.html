@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Constructor's Brief · Band Car Grand Prix</title>
-<meta name="description" content="Year 5 Band Car Grand Prix. Research the rules, design your car part by part, and take every number through scrutineering. Lessons 1 and 2.">
+<meta name="description" content="Year 5 Band Car Grand Prix. Research the rules, design your car part by part, take every number through scrutineering, then finish the car in Tinkercad. Lessons 1 and 2 and the final build.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#171c22" media="(prefers-color-scheme: dark)">
@@ -291,6 +291,96 @@
   footer .foot-2{font-size:12.5px}
   footer a{color:var(--petrol)}
 
+
+  /* ---------- final build: finishing the car in Tinkercad ---------- */
+  /* Drawing tokens. Tyres stay dark and plates stay plate-coloured in both themes. */
+  :root{
+    --tyre:#1f242b; --hubc:#69727e; --axlec:#c9ced6; --bush:var(--petrol);
+    --plate:#e3e7ec; --plate-edge:#b7bfca; --grid:#cdd3dc;
+    --recess:#6b4f00; --recess-lip:#fff4bf;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --tyre:#07090c; --hubc:#7c8794; --axlec:#d5dae1;
+      --plate:#29303b; --plate-edge:#4a5462; --grid:#3a4350;
+      --recess:#5a4300; --recess-lip:#fff6c8;
+    }
+  }
+  :root[data-theme="dark"]{
+    --tyre:#07090c; --hubc:#7c8794; --axlec:#d5dae1;
+    --plate:#29303b; --plate-edge:#4a5462; --grid:#3a4350;
+    --recess:#5a4300; --recess-lip:#fff6c8;
+  }
+
+  .dia{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:14px 16px;box-shadow:var(--shadow);margin:0 0 18px;min-width:0}
+  .dia h3{font-size:17px;font-weight:600;margin-bottom:8px}
+  .dia .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .dia svg{display:block;width:100%;height:auto}
+  .dia svg.wide{min-width:600px}
+  .dia svg.mid{min-width:300px}
+  .dia figcaption{font-size:14px;color:var(--ink-3);margin-top:8px}
+  .dia ul{margin:10px 0 0;padding-left:20px;color:var(--ink-2);font-size:15.5px}
+  .dia text,.plate text{font-family:var(--body)}
+  .t-lim{font-family:var(--mono)!important;font-size:4.2px;fill:var(--ink-3);letter-spacing:.04em}
+  .t-lim-s{font-size:3.2px}
+  .t-dim{font-family:var(--mono)!important;font-size:4px;font-weight:600;fill:var(--petrol)}
+  .t-dim-s{font-size:3.4px}
+  .t-lab{font-size:4px;fill:var(--ink-2)}
+  .t-small{font-size:3.6px;fill:var(--ink-3)}
+  .t-note{font-size:4.8px;fill:var(--ink-3)}
+  .t-hk{font-size:1.35px;fill:var(--ink)}
+  .t-red{fill:var(--flag-red)}
+  .t-pet{fill:var(--petrol);font-family:var(--mono)!important;font-weight:600}
+  .t-cut{font-family:var(--display)!important;font-weight:800;font-size:8px}
+  .t-cut-s{font-size:6.5px}
+  .t-plate{font-size:9px;fill:var(--ink-2)}
+  .t-go{fill:var(--go);font-weight:600}
+  .mk circle{fill:var(--petrol)}
+  .mk text{fill:var(--on-petrol);font-family:var(--mono)!important;font-weight:600;font-size:3.2px;text-anchor:middle}
+  .pm circle{fill:var(--stop)}
+  .pm text{fill:#fff;font-family:var(--mono)!important;font-weight:600;font-size:10px}
+
+  .legend{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px 18px;font-size:15px;color:var(--ink-2)}
+  .legend li{display:flex;gap:9px;align-items:flex-start}
+  .legend b{flex:0 0 21px;height:21px;border-radius:50%;background:var(--petrol);color:var(--on-petrol);font-family:var(--mono);font-size:12px;display:inline-grid;place-items:center;margin-top:1px}
+
+  .tk{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--petrol);margin-top:12px!important}
+  .card .tk{color:var(--petrol)}
+  .fsteps{list-style:none;margin:8px 0 0;padding:0;counter-reset:fs;display:flex;flex-direction:column;gap:9px}
+  .fsteps li{counter-increment:fs;display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;color:var(--ink-2);align-items:start}
+  .fsteps li::before{content:counter(fs);font-family:var(--mono);font-weight:600;font-size:12px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+  .fsteps strong{color:var(--ink);font-weight:600}
+  kbd{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px}
+  .card p.eg,.dia p.eg{margin-top:14px;font-size:15.5px;background:var(--surface-2);border-radius:6px;padding:10px 13px;color:var(--ink-2)}
+
+  .gridcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:18px}
+  .namecards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .namecards .dia{margin:0}
+  .namecards .dia p:not(.tk){color:var(--ink-2)}
+  @media (max-width:800px){.namecards{grid-template-columns:1fr}}
+
+  .plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:22px}
+  @media (max-width:700px){.plates{grid-template-columns:1fr}}
+  .plate{margin:0;background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:12px 14px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-width:0}
+  .plate svg{display:block;width:100%;height:auto;max-width:440px;margin:0 auto}
+  .pv{font-family:var(--display);font-weight:700;font-size:20px;display:flex;gap:8px;align-items:baseline}
+  .plate.bad .mark{color:var(--stop)}
+  .plate.good .mark{color:var(--go)}
+  .plate figcaption{font-size:14px;color:var(--ink-3)}
+  .plate ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;font-size:15px;color:var(--ink-2)}
+  .plate ol li{display:flex;gap:7px;align-items:flex-start}
+  .plate ol b{flex:0 0 20px;height:20px;border-radius:50%;background:var(--stop);color:#fff;font-family:var(--mono);font-size:11.5px;display:inline-grid;place-items:center;margin-top:1px}
+
+  .row.info{border-left-color:var(--petrol)}
+  .row.info .verdict{background:var(--petrol-soft);color:var(--petrol)}
+
+  .checklist{display:flex;flex-direction:column;gap:8px}
+  .tick.fcheck{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;font-family:var(--body);font-size:16px;line-height:1.35;padding:10px 12px;min-height:44px;color:var(--ink);font-weight:400}
+  .tick.fcheck::before,.tick.fcheck[aria-pressed="true"]::before{content:"";flex:0 0 18px;height:18px;margin-top:1px;border:2px solid var(--ink-3);border-radius:4px;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;line-height:1}
+  .tick.fcheck[aria-pressed="true"]{color:var(--go);font-weight:600}
+  .tick.fcheck[aria-pressed="true"]::before{content:"\2713";background:var(--go);border-color:var(--go);color:#fff;font-size:15px}
+  .card .col-h{margin-top:0}
+
   @media print{
     /* A page printed from a dark-mode iPad used to come out dark. It does not now.
        The doubled :root is deliberate: the dark-mode block above is
@@ -325,6 +415,67 @@
     .callout{border:1px solid #000}
     a[href]{color:#000;text-decoration:none}
   }
+  @media print{
+    /* The finishing guide prints on its own: from its button, or from the
+       browser's own print while the Finish the car lesson is open. Every other
+       print leaves it out, as before. */
+    :root:root,:root:root[data-theme="dark"],:root:root:not([data-theme="light"]){
+      --tyre:#1f242b;--hubc:#69727e;--axlec:#c9ced6;--bush:#0a5459;
+      --plate:#e9ecf0;--plate-edge:#9aa3ae;--grid:#d3d8df;--recess:#6b4f00;--recess-lip:#fff4bf;
+    }
+    body:not(.print-finish):not(.now-f) .panel[data-lesson="F"]{display:none!important}
+    body.now-f.print-all .panel[data-lesson="F"],body.now-f.print-research .panel[data-lesson="F"]{display:none!important}
+    body.print-finish .panel:not([data-lesson="F"]){display:none!important}
+    body.now-f:not(.print-all):not(.print-research) .panel:not([data-lesson="F"]){display:none!important}
+    .panel[data-lesson="F"]{break-before:auto}
+    .panel[data-lesson="F"]+.panel[data-lesson="F"]{break-before:auto;margin-top:9mm}
+    .panel[data-lesson="F"] .st-head{margin-bottom:10px}
+    .dia,.plate,.gridcards .card,.fsteps li{break-inside:avoid}
+    .dia .scroll{overflow:visible}
+    .dia svg.wide,.dia svg.mid{min-width:0}
+    .plate svg{max-width:78mm}
+    .tick.fcheck{border:1px solid #999;padding:5px 8px;min-height:0;font-size:10.5pt;color:#000!important;font-weight:400!important}
+    .tick.fcheck[aria-pressed="true"]::before{background:#fff;color:#000;border-color:#000}
+    /* print sizes for the guide: drawings shrink, columns stay side by side */
+    .panel[data-lesson="F"] .st-head h2{font-size:21pt}
+    .panel[data-lesson="F"] .st-lede{font-size:10.5pt;margin-top:3px}
+    .panel[data-lesson="F"] .tablewrap{margin-bottom:8px!important}
+    .panel[data-lesson="F"] th,.panel[data-lesson="F"] td{padding:4px 9px;font-size:9.5pt}
+    .panel[data-lesson="F"] .card{padding:8px 11px}
+    .panel[data-lesson="F"] .card h3,.dia h3{font-size:11.5pt;margin-bottom:3px}
+    .dia{padding:7px 10px;margin-bottom:8px}
+    .dia svg.wide{max-width:150mm;margin:0 auto}
+    .dia svg.mid{max-width:112mm;margin:0 auto}
+    .dia figcaption,.plate figcaption{font-size:8.5pt;margin-top:3px}
+    .dia ul{font-size:9.5pt;margin-top:4px}
+    .legend{font-size:9pt;gap:2px 12px;margin-top:5px}
+    .legend b{flex-basis:15px;height:15px;font-size:8pt}
+    .panel[data-lesson="F"] .cols{grid-template-columns:1fr 1fr;gap:9px}
+    .panel[data-lesson="F"] .gridcards{grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+    .namecards{grid-template-columns:1fr 1fr;gap:8px}
+    .fsteps{gap:3px;margin-top:4px}
+    .fsteps li{grid-template-columns:16px 1fr;gap:6px;font-size:9.8pt}
+    .fsteps li::before{width:16px;height:16px;font-size:8pt}
+    .card p.eg,.dia p.eg{margin-top:6px;padding:5px 8px;font-size:9.3pt}
+    .tk{margin-top:5px!important;font-size:7.5pt}
+    kbd{font-size:8pt}
+    #finCalc{gap:3px;margin-top:6px!important}
+    #finCalc .row{padding:3px 9px;gap:8px}
+    #finCalc .row .what{font-size:9.5pt}
+    #finCalc .row .lim{font-size:7.5pt}
+    #finCalc .row .val{font-size:10pt;min-width:0}
+    #finCalc .row .why{font-size:8.5pt}
+    .panel[data-lesson="F"] .specgrid{gap:6px;grid-template-columns:repeat(4,1fr)}
+    .plates{gap:8px;margin-bottom:8px}
+    .plate{padding:6px 9px;gap:3px}
+    .pv{font-size:12pt}
+    .plate ol{font-size:9pt;gap:1px 8px}
+    .plate ol b{flex-basis:14px;height:14px;font-size:7.5pt}
+    .checklist{gap:3px}
+    .panel[data-lesson="F"] .st-head{break-inside:avoid;break-after:avoid}
+    .panel[data-lesson="F"]>h3{break-after:avoid}
+    #finCalc .row.todo{display:none}
+  }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -349,6 +500,7 @@
     <div class="lesson-tabs" role="tablist">
       <button class="lesson" role="tab" aria-selected="true" data-lesson="L1"><span class="n">Lesson 1</span>Research</button>
       <button class="lesson" role="tab" aria-selected="false" data-lesson="L2"><span class="n">Lesson 2</span>Design the car</button>
+      <button class="lesson" role="tab" aria-selected="false" data-lesson="F"><span class="n">Final build</span>Finish the car</button>
       <button class="lesson" role="tab" aria-selected="false" data-lesson="R"><span class="n">Any time</span>Research Desk</button>
     </div>
     <button class="btn-print" type="button" id="printResearchBtn">
@@ -1149,10 +1301,447 @@
   <div class="tnote-slot" data-note="p-sheet-1"></div>
 </section>
 
+
+<!-- ================= FINAL BUILD: finishing the car in Tinkercad ================= -->
+<!-- One example car is drawn throughout, always to scale (1 unit = 1 mm):
+     150 mm long, 36 mm tall, 24 mm wheels 10 mm wide, 66 mm across the rear wheels.
+     Axles at x = +46 (front) and -48 (rear), 12 mm up. Underside 5 mm up. Hook under the nose. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="ex-top" d="M76 -22 H66 V-6 L40 -9 L20 -12 L5 -14 L-8 -20 H-64 V-25 H-74 V25 H-64 V20 H-8 L5 14 L20 12 L40 9 L66 6 V22 H76 Z"/>
+    <path id="ex-side" d="M-74 -5 L70 -5 L74 -6 L76 -8 L74.5 -10 L40 -15 L20 -18 L12 -19 L4 -24 L-6 -26.5 L-16 -26.5 L-26 -23 L-50 -19 L-66 -17 L-74 -15 Z M-70 -16.5 V-31 H-67 V-16.8 Z M-74 -36 H-64 V-31 H-74 Z"/>
+    <g id="ex-wheel-side"><circle r="12" fill="var(--tyre)" stroke="var(--line)" stroke-width="0.4"/><circle r="6.5" fill="var(--hubc)"/><circle r="2.75" fill="var(--axlec)"/></g>
+    <g id="ex-wheel-fixed"><circle r="12" fill="var(--tyre)" stroke="var(--line)" stroke-width="0.5"/><circle r="6.5" fill="var(--hubc)"/><circle r="2.75" fill="var(--axlec)" stroke="var(--ink)" stroke-width="0.5"/></g>
+    <g id="ex-wheel-push"><circle r="12" fill="var(--tyre)" stroke="var(--line)" stroke-width="0.5"/><circle r="6.5" fill="var(--hubc)"/><circle r="2.75" fill="var(--plate)"/></g>
+  </defs>
+</svg>
+
+<section class="panel" role="tabpanel" data-slug="f1" id="p-fin-rules" data-lesson="F" data-label="The Final Rules" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F1</span><span class="st-strand">Whole team · before you print</span></div>
+    <h2>The Final Rules</h2>
+    <p class="st-lede">Your car goes to the printer only if it passes every one of these. They are checked on your Tinkercad file, so check them yourself first.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-bottom:18px">
+    <table>
+      <thead><tr><th>Rule</th><th>Number</th><th>Where it is measured</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Length</td><td class="num">160 mm max</td><td>Nose to tail, wings included</td></tr>
+        <tr><td class="dim">Width</td><td class="num">80 mm max</td><td>Across the outside of the wheels</td></tr>
+        <tr><td class="dim">Height</td><td class="num">65 mm max</td><td>Ground to the highest point, standing on its wheels</td></tr>
+        <tr><td class="dim">Ground clearance</td><td class="num">5 mm</td><td>Ground to the underside of the body</td></tr>
+        <tr><td class="dim">Tow hook</td><td class="num">3 mm</td><td>Under the front, on the centre line. It ends 2 mm above the ground</td></tr>
+        <tr><td class="dim">Axle holes</td><td class="num">6 mm</td><td>Through the body, level with the centre of the wheels</td></tr>
+        <tr><td class="dim">Axles</td><td class="num">5.5 mm</td><td>Half a millimetre smaller than the hole, so they spin</td></tr>
+        <tr><td class="dim">Bushings</td><td class="num">10 mm across</td><td>Round every axle hole, 1 mm from the wheel</td></tr>
+        <tr><td class="dim">Wheels</td><td class="num">20 mm or more</td><td>Across the tyre, so the hole and bushing stay above the 5 mm line</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="dia">
+    <h3>From the side</h3>
+    <div class="scroll">
+      <svg class="wide" viewBox="-92 -76 184 93" role="img" aria-label="Side view of an example car, drawn to scale inside a dashed box 160 mm long and 65 mm tall. The underside is 5 mm above the ground. A 3 mm tow hook hangs under the nose and ends 2 mm above the ground. The axles are 12 mm up, half the 24 mm wheel.">
+        <rect x="-92" y="0" width="184" height="2.4" fill="var(--surface-2)"/>
+        <line x1="-90" y1="0" x2="90" y2="0" stroke="var(--ink-2)" stroke-width="0.7"/>
+        <rect x="-80" y="-65" width="160" height="65" fill="none" stroke="var(--ink-3)" stroke-width="0.6" stroke-dasharray="2.5 2"/>
+        <text class="t-lim" x="0" y="-68.5" text-anchor="middle">160 mm maximum length</text>
+        <text class="t-lim" transform="translate(-84.5 -32.5) rotate(-90)" text-anchor="middle">65 mm maximum height</text>
+        <text class="t-small" x="79" y="-60" text-anchor="end">front →</text>
+        <use href="#ex-side" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.5"/>
+        <rect x="64" y="-5" width="3" height="3" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.4"/>
+        <rect x="61" y="-3" width="3" height="1" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.4"/>
+        <use href="#ex-wheel-side" x="-48" y="-12"/>
+        <use href="#ex-wheel-side" x="46" y="-12"/>
+        <g stroke="var(--petrol)" stroke-width="0.5" fill="none">
+          <path d="M10 0 V-5 M8.6 0 H11.4 M8.6 -5 H11.4"/>
+          <path d="M-64 0 V-12 M-65.4 0 H-62.6 M-65.4 -12 H-62.6"/>
+          <path d="M-48 -12 H-64" stroke-dasharray="1 1"/>
+          <path d="M65.5 1 V5.5"/>
+        </g>
+        <text class="t-dim" x="12.8" y="-1.2">5 mm</text>
+        <text class="t-lab" x="-48" y="8.6" text-anchor="middle">axle at half the wheel:</text>
+        <text class="t-lab" x="-48" y="13.6" text-anchor="middle">12 mm up for a 24 mm wheel</text>
+        <text class="t-lab" x="65.5" y="9.6" text-anchor="middle">3 mm tow hook,</text>
+        <text class="t-lab" x="65.5" y="14.6" text-anchor="middle">ends 2 mm up</text>
+        <text class="t-lab" x="10" y="8.6" text-anchor="middle">flat underside,</text>
+        <text class="t-lab" x="10" y="13.6" text-anchor="middle">5 mm up everywhere</text>
+      </svg>
+    </div>
+    <figcaption>An example car, drawn to scale: 150 mm long, 36 mm tall, 24 mm wheels. It passes every rule.</figcaption>
+  </figure>
+
+  <figure class="dia">
+    <h3>From the front, cut through the rear axle</h3>
+    <div class="scroll">
+      <svg class="mid" viewBox="-52 -37 104 50" role="img" aria-label="The same car seen from the front and cut through the rear axle, to scale. A 5.5 mm axle runs through a 6 mm hole in the body and its two bushings. The bushings stick out 2 mm from each side of the body, with a 1 mm gap to each wheel. The left wheel has the axle joined on. The right wheel pushes onto the axle end. It is 66 mm across the wheels, inside the 80 mm limit.">
+        <rect x="-52" y="0" width="104" height="2" fill="var(--surface-2)"/>
+        <line x1="-50" y1="0" x2="50" y2="0" stroke="var(--ink-2)" stroke-width="0.5"/>
+        <path d="M-40 3 V-30 M40 3 V-30" stroke="var(--ink-3)" stroke-width="0.45" stroke-dasharray="1.8 1.4" fill="none"/>
+        <text class="t-lim t-lim-s" x="0" y="-32.4" text-anchor="middle">80 mm maximum width</text>
+        <path d="M-20 -5 V-16 Q-20 -20 -16 -20 H16 Q20 -20 20 -16 V-5 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.35"/>
+        <rect x="-22" y="-17" width="44" height="10" fill="none" stroke="var(--petrol)" stroke-width="0.35" stroke-dasharray="1.2 0.9"/>
+        <rect x="-22" y="-17" width="2" height="10" fill="var(--bush)"/>
+        <rect x="20" y="-17" width="2" height="10" fill="var(--bush)"/>
+        <rect x="-22" y="-15" width="44" height="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="0.2"/>
+        <rect x="-33" y="-24" width="10" height="24" rx="1.6" fill="var(--tyre)" stroke="var(--line)" stroke-width="0.3"/>
+        <rect x="23" y="-24" width="10" height="24" rx="1.6" fill="var(--tyre)" stroke="var(--line)" stroke-width="0.3"/>
+        <g fill="var(--surface)"><rect x="-29" y="-24" width="2" height="1"/><rect x="-29" y="-1" width="2" height="1"/><rect x="27" y="-24" width="2" height="1"/><rect x="27" y="-1" width="2" height="1"/></g>
+        <rect x="-33" y="-14.75" width="65" height="5.5" fill="var(--axlec)" stroke="var(--ink-3)" stroke-width="0.2"/>
+        <g stroke="var(--petrol)" stroke-width="0.35" fill="none">
+          <path d="M0 -24.4 V-14.9"/><path d="M21 -24.4 V-17.2"/><path d="M-22.5 -25.4 V-17.4"/>
+          <path d="M-43.4 -12 H-33.4"/><path d="M43.4 -12 H33.4"/>
+          <path d="M-33 4.5 H33 M-33 3 V6 M33 3 V6"/>
+        </g>
+        <g class="mk"><circle cx="0" cy="-27" r="2.6"/><text x="0" y="-25.9">1</text></g>
+        <g class="mk"><circle cx="21" cy="-27" r="2.6"/><text x="21" y="-25.9">2</text></g>
+        <g class="mk"><circle cx="-22.5" cy="-28" r="2.6"/><text x="-22.5" y="-26.9">3</text></g>
+        <g class="mk"><circle cx="-46" cy="-12" r="2.6"/><text x="-46" y="-10.9">4</text></g>
+        <g class="mk"><circle cx="46" cy="-12" r="2.6"/><text x="46" y="-10.9">5</text></g>
+        <text class="t-dim t-dim-s" x="0" y="10.4" text-anchor="middle">66 mm across the wheels</text>
+      </svg>
+    </div>
+    <ol class="legend">
+      <li><b>1</b><span>5.5 mm axle in a 6 mm hole</span></li>
+      <li><b>2</b><span>Bushing, 10 mm across, sticking out 2 mm</span></li>
+      <li><b>3</b><span>1 mm gap between bushing and wheel</span></li>
+      <li><b>4</b><span>Fixed wheel: the axle is joined on</span></li>
+      <li><b>5</b><span>Push-on wheel: 5.5 mm hole, stopping 1 mm short</span></li>
+    </ol>
+  </figure>
+
+  <div class="card">
+    <h3>Check the size with a gauge box</h3>
+    <p>Scrutineers check a car by dropping it into a box. You can do the same in Tinkercad, with a box you can see through.</p>
+    <p class="tk">In Tinkercad</p>
+    <ol class="fsteps">
+      <li><span>Drag a <strong>Box</strong> onto the workplane. Make it <strong>160</strong> long, <strong>80</strong> wide and <strong>65</strong> tall.</span></li>
+      <li><span>Switch it to <strong>Hole</strong>, so you can see through it.</span></li>
+      <li><span>Slide it over your car, bottom on the workplane, and centre it with <strong>Align</strong> <kbd>L</kbd>.</span></li>
+      <li><span>If any part pokes out of the box, your car is too big.</span></li>
+      <li><span><strong>Delete the box</strong> when you have checked. Never group it with your car: a hole cuts away everything inside it.</span></li>
+    </ol>
+  </div>
+
+  <div class="tnote-slot" data-note="p-fin-rules-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="f2" id="p-fin-axles" data-lesson="F" data-label="Axles &amp; Bushings" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F2</span><span class="role-badge">Running Gear</span><span class="st-strand">Build in Tinkercad</span></div>
+    <h2>Axles and Bushings</h2>
+    <p class="st-lede">Your wheels have to turn, run straight and never rub on the car. Three parts make that happen: a hole, an axle and a bushing.</p>
+  </div>
+
+  <div class="gridcards">
+    <div class="card">
+      <h3>The hole is bigger than the axle</h3>
+      <p>The axle hole is <strong>6 mm</strong> and the axle is <strong>5.5 mm</strong>. That leaves a gap of a quarter of a millimetre all the way round, about as thick as two sheets of paper, so the axle spins freely. Make them the same size and the plastic grips the axle tight.</p>
+    </div>
+    <div class="card">
+      <h3>A bushing stops the wheel bashing the body</h3>
+      <p>A <strong>bushing</strong> is a short, thick tube round the axle hole that sticks out of the side of the car. The wheel can only touch the small end of the bushing, not the whole side of the body, so it spins freely and runs straight. Leave a <strong>1 mm gap</strong> between the bushing and the wheel.</p>
+    </div>
+    <div class="card">
+      <h3>One wheel with its axle, one that pushes on</h3>
+      <p>Each axle is joined to one wheel. Slide it through the car, then push the other wheel onto the end. That wheel's hole is <strong>5.5 mm</strong>, the same as the axle, so it grips. The hole stops <strong>1 mm</strong> before the outside, so the wheel stops in the right place.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h3>Holes and bushings</h3>
+      <p class="tk">In Tinkercad</p>
+      <ol class="fsteps">
+        <li><span><strong>Axle height</strong> is half your wheel size. A 24 mm wheel puts the axle 12 mm up.</span></li>
+        <li><span><strong>Bushing:</strong> a Cylinder, Solid, 10 mm across, <strong>Sides 64</strong>. Turn it on its side so it runs across the car. Make it 4 mm longer than the body is wide, so 2 mm sticks out each side. Raise it to <strong>axle height − 5</strong>.</span></li>
+        <li><span><strong>Hole:</strong> a Cylinder, <strong>Hole</strong>, 6 mm across, Sides 64, on its side and longer than the bushing. Raise it to <strong>axle height − 3</strong>.</span></li>
+        <li><span>Centre the hole in the bushing with <strong>Align</strong> <kbd>L</kbd>, and move both to where the axle goes.</span></li>
+        <li><span>Select the body, the bushing and the hole, then <strong>Group</strong>. Do the same at the other axle.</span></li>
+        <li><span>Look from the <strong>Front</strong> on the view cube. Both holes should line up with the centres of the wheels.</span></li>
+      </ol>
+      <p class="eg"><strong>Why Sides 64?</strong> Tinkercad's cylinders start with 20 flat sides. 64 makes the hole and the axle properly round, so the axle spins smoothly.</p>
+    </div>
+    <div class="card">
+      <h3>Wheels and axles</h3>
+      <p class="tk">In Tinkercad</p>
+      <ol class="fsteps">
+        <li><span><strong>Fixed wheel:</strong> a Cylinder, Solid, 5.5 mm across, Sides 64, starting at the wheel's outside face. Centre it on the wheel with <strong>Align</strong>, then <strong>Group</strong>.</span></li>
+        <li><span><strong>Push-on wheel:</strong> a Cylinder, <strong>Hole</strong>, 5.5 mm across, Sides 64, from the inside face, stopping 1 mm before the outside face. <strong>Group</strong>.</span></li>
+        <li><span><strong>How long?</strong> The axle sticks out of the fixed wheel by the bushing length, plus 2 mm for the two gaps, plus the depth of the push-on hole.</span></li>
+      </ol>
+      <p class="eg"><strong>Example:</strong> bushing 44 mm long, wheels 10 mm wide. The push-on hole is 9 mm deep, so the axle sticks out 44 + 2 + 9 = <strong>55 mm</strong>. Across the wheels it is 44 + 2 + 10 + 10 = <strong>66 mm</strong>, inside the 80 mm limit.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Work out your numbers</h3>
+    <p>Measure your car in Tinkercad and put the numbers in. The rest is worked out for you, and checked against the rules.</p>
+    <div class="specgrid" style="margin-top:12px">
+      <div class="field"><label for="f-wd">Wheel size across the tyre (mm)</label><input type="number" step="0.5" inputmode="decimal" id="f-wd"></div>
+      <div class="field"><label for="f-ww">Wheel width (mm)</label><input type="number" step="0.5" inputmode="decimal" id="f-ww"></div>
+      <div class="field"><label for="f-bwf">Body width at the front axle (mm)</label><input type="number" step="0.5" inputmode="decimal" id="f-bwf"></div>
+      <div class="field"><label for="f-bwr">Body width at the rear axle (mm)</label><input type="number" step="0.5" inputmode="decimal" id="f-bwr"></div>
+    </div>
+    <div class="scrut" id="finCalc" style="margin-top:16px"></div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-fin-axles-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="f3" id="p-fin-hook" data-lesson="F" data-label="Clearance &amp; Hook" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F3</span><span class="role-badge">Bodywork</span><span class="st-strand">Build in Tinkercad</span></div>
+    <h2>Ground Clearance and Tow Hook</h2>
+    <p class="st-lede">The body sits 5 mm off the ground. The tow hook is the one part allowed lower: it hangs 3 mm below the body, so it ends 2 mm above the ground.</p>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h3>5 mm under the body</h3>
+      <p>The wheels stand on the workplane. The underside of the body is <strong>5 mm</strong> above it, all the way along. Nothing else on the car may be lower: not the nose, the wings or the bushings.</p>
+      <p class="tk">In Tinkercad</p>
+      <ol class="fsteps">
+        <li><span>Put the wheels on the workplane with <strong>Drop</strong> <kbd>D</kbd>.</span></li>
+        <li><span>Select the body on its own, before you add the hook.</span></li>
+        <li><span>Drag the black cone on top of it until the height reads <strong>5</strong>.</span></li>
+        <li><span>Look from the <strong>Front</strong> and the <strong>Right</strong> on the view cube. There should be a gap under the whole body.</span></li>
+      </ol>
+    </div>
+    <figure class="dia" style="margin:0">
+      <h3>The tow hook, four times real size</h3>
+      <svg viewBox="-12 -12 30 18.5" role="img" aria-label="Close-up side view of the tow hook at four times real size. A 3 by 3 mm post hangs 3 mm below the underside of the body. A 1 mm thick foot points backwards from the bottom of the post. The bottom is 2 mm above the ground. A loop of string goes round the post and pulls forwards.">
+        <rect x="-12" y="-12" width="30" height="7" fill="var(--accent)"/>
+        <line x1="-12" y1="-5" x2="18" y2="-5" stroke="var(--ink)" stroke-width="0.15"/>
+        <text class="t-hk" x="-11" y="-7.4">body</text>
+        <text class="t-hk" x="17" y="-7.4" text-anchor="end">front →</text>
+        <rect x="-12" y="0" width="30" height="1.2" fill="var(--surface-2)"/>
+        <line x1="-12" y1="0" x2="18" y2="0" stroke="var(--ink-2)" stroke-width="0.15"/>
+        <text class="t-hk" x="-11" y="4.4">ground</text>
+        <rect x="0" y="-6" width="3" height="1" fill="none" stroke="var(--ink)" stroke-width="0.1" stroke-dasharray="0.4 0.3"/>
+        <path d="M-0.8 -3.7 A2.3 0.55 0 0 1 3.8 -3.7" fill="none" stroke="var(--flag-red)" stroke-width="0.22" opacity="0.55"/>
+        <rect x="0" y="-5" width="3" height="3" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.15"/>
+        <rect x="-3" y="-3" width="3" height="1" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.15"/>
+        <path d="M-0.8 -3.7 A2.3 0.55 0 0 0 3.8 -3.7" fill="none" stroke="var(--flag-red)" stroke-width="0.22"/>
+        <path d="M3.8 -3.7 L17.5 -3.3" stroke="var(--flag-red)" stroke-width="0.22" fill="none"/>
+        <text class="t-hk t-red" x="17" y="-1.4" text-anchor="end">string pulls this way</text>
+        <g stroke="var(--petrol)" stroke-width="0.12" fill="none">
+          <path d="M-5.5 -5 V-2 M-6.1 -5 H-4.9 M-6.1 -2 H-4.9"/>
+          <path d="M-5.5 -2 V0 M-6.1 0 H-4.9"/>
+          <path d="M-3 1.9 H3 M-3 1.4 V2.4 M0 1.4 V2.4 M3 1.4 V2.4"/>
+        </g>
+        <text class="t-hk t-pet" x="-6.4" y="-3" text-anchor="end">3 mm</text>
+        <text class="t-hk t-pet" x="-6.4" y="-0.5" text-anchor="end">2 mm</text>
+        <text class="t-hk t-pet" x="-1.5" y="4.2" text-anchor="middle">3</text>
+        <text class="t-hk t-pet" x="1.5" y="4.2" text-anchor="middle">3</text>
+      </svg>
+      <figcaption>Foot 3 mm long and 1 mm thick, post 3 × 3 mm. Both are 3 mm wide.</figcaption>
+    </figure>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Build the tow hook</h3>
+    <p class="tk">In Tinkercad</p>
+    <ol class="fsteps">
+      <li><span><strong>Post:</strong> a Box, Solid, 3 × 3 mm and 4 mm tall. Raise it <strong>2 mm</strong>, so 1 mm goes up into the body and 3 mm hangs below.</span></li>
+      <li><span><strong>Foot:</strong> a Box, Solid, 3 mm wide, 3 mm long and 1 mm tall. Raise it 2 mm and push it against the <strong>back</strong> of the post.</span></li>
+      <li><span>Move the hook under the nose, about 10 mm back from the front, and centre it on the body with <strong>Align</strong> <kbd>L</kbd>.</span></li>
+      <li><span><strong>Group</strong> the hook with the body. Its bottom is now 2 mm above the workplane, the lowest point on the car.</span></li>
+    </ol>
+    <p class="eg">The foot points backwards, so a loop of string or elastic band cannot slip off the bottom when the car is pulled forwards. Keep the hook to exactly 3 mm. It is the only part that touches the printer plate, so the printer has to build supports under the rest of the car. On one of our test cars the hook added about 40 minutes to the print.</p>
+  </div>
+
+  <div class="tnote-slot" data-note="p-fin-hook-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="f4" id="p-fin-names" data-lesson="F" data-label="Names" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F4</span><span class="st-strand">Whole team</span></div>
+    <h2>Cut It In, Don't Stick It On</h2>
+    <p class="st-lede">Your names, class and team name go into the car, not on top of it. Raised letters add plastic and printing time, and under the car they would hang below the 5 mm line. Cut-in letters take plastic away.</p>
+  </div>
+
+  <div class="namecards">
+    <figure class="dia">
+      <h3>Underneath: your names and class</h3>
+      <svg viewBox="-80 -29 160 58" role="img" aria-label="The example car seen from below, with the example names Ali, Sam and Jo and the class 5X cut into the flat underside between the axles. The tow hook is under the nose.">
+        <use href="#ex-top" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.5"/>
+        <g fill="none" stroke="var(--ink-3)" stroke-width="0.4" stroke-dasharray="1.4 1.1"><path d="M-48 -20 V20"/><path d="M46 -8.3 V8.3"/></g>
+        <rect x="61" y="-1.5" width="6" height="3" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.4"/>
+        <g class="t-cut" text-anchor="middle">
+          <text x="-3.6" y="-1.6" fill="var(--recess-lip)">ALI · SAM · JO</text>
+          <text x="-4" y="-2" fill="var(--recess)">ALI · SAM · JO</text>
+          <text x="-3.6" y="9.4" fill="var(--recess-lip)">5X</text>
+          <text x="-4" y="9" fill="var(--recess)">5X</text>
+        </g>
+        <text class="t-note" x="-48" y="27.4" text-anchor="middle">rear axle</text>
+        <text class="t-note" x="46" y="17.6" text-anchor="middle">front axle</text>
+        <path d="M61 -11.6 L63.6 -1.9" stroke="var(--ink-3)" stroke-width="0.4" fill="none"/>
+        <text class="t-note" x="58" y="-13" text-anchor="middle">hook</text>
+      </svg>
+      <ul>
+        <li>On the flat underside, between the axles and away from the hook</li>
+        <li>Letters at least 6 mm tall, cut about 1 mm deep</li>
+        <li>Mirror the text first, so it reads the right way when the car is turned over</li>
+      </ul>
+      <p class="tk">In Tinkercad</p>
+      <p>Text → <strong>Hole</strong>, <strong>Mirror</strong> <kbd>M</kbd>, raise it so 1 mm goes into the underside, then <strong>Group</strong>.</p>
+    </figure>
+    <figure class="dia">
+      <h3>On the side: your team name</h3>
+      <svg viewBox="-80 -40 160 44" role="img" aria-label="The example car seen from the side, with the example team name Team Turbo cut into the flat side of the body between the wheels.">
+        <line x1="-80" y1="0" x2="80" y2="0" stroke="var(--ink-2)" stroke-width="0.5"/>
+        <use href="#ex-side" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.5"/>
+        <rect x="64" y="-5" width="3" height="3" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.4"/>
+        <rect x="61" y="-3" width="3" height="1" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.4"/>
+        <use href="#ex-wheel-side" x="-48" y="-12"/>
+        <use href="#ex-wheel-side" x="46" y="-12"/>
+        <g class="t-cut t-cut-s" text-anchor="middle">
+          <text x="-1.6" y="-7.1" fill="var(--recess-lip)">TEAM TURBO</text>
+          <text x="-2" y="-7.5" fill="var(--recess)">TEAM TURBO</text>
+        </g>
+      </svg>
+      <ul>
+        <li>On a big flat side, between the wheels</li>
+        <li>Not on the wings, the nose or anything thin</li>
+        <li>About 1 mm deep, with at least 2 mm of plastic behind it</li>
+      </ul>
+      <p class="tk">In Tinkercad</p>
+      <p>Text → <strong>Hole</strong>, turn it upright, push it 1 mm into the side, then <strong>Group</strong>.</p>
+    </figure>
+  </div>
+
+  <div class="tnote-slot" data-note="p-fin-names-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="f5" id="p-fin-knoll" data-lesson="F" data-label="Knolling" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F5</span><span class="st-strand">Whole team · before you hand in</span></div>
+    <h2>Knolling Your Print Plate</h2>
+    <p class="st-lede">Knolling means laying things out in straight lines and right angles, with like things together. Knoll a copy of your car on the workplane so it is ready to print. We have 180 cars to print, so every file has to be easy to check.</p>
+  </div>
+
+  <div class="plates">
+    <figure class="plate bad">
+      <div class="pv"><span class="mark" aria-hidden="true">✗</span> Not knolled</div>
+      <svg viewBox="-12 -10 280 290" role="img" aria-label="A 256 mm workplane with the car body at an angle, a wheel standing on its edge, two wheels touching and a wheel hanging off the edge">
+        <defs><pattern id="grid-a" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--grid)" stroke-width="0.6"/></pattern></defs>
+        <rect x="0" y="0" width="256" height="256" rx="3" fill="var(--plate)" stroke="var(--plate-edge)" stroke-width="1.5"/>
+        <rect x="0" y="0" width="256" height="256" rx="3" fill="url(#grid-a)"/>
+        <use href="#ex-top" transform="translate(150 95) rotate(-16)" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.8"/>
+        <g transform="translate(70 200) rotate(22)"><rect x="-5" y="-12" width="10" height="24" rx="2" fill="var(--tyre)"/></g>
+        <use href="#ex-wheel-push" transform="translate(186 205)"/>
+        <use href="#ex-wheel-fixed" transform="translate(210 205)"/>
+        <use href="#ex-wheel-fixed" transform="translate(4 150)"/>
+        <use href="#ex-wheel-push" transform="translate(124 226)"/>
+        <g class="pm" text-anchor="middle">
+          <circle cx="226" cy="40" r="8"/><text x="226" y="43.5">1</text>
+          <circle cx="90" cy="224" r="8"/><text x="90" y="227.5">2</text>
+          <circle cx="198" cy="232" r="8"/><text x="198" y="235.5">3</text>
+          <circle cx="26" cy="128" r="8"/><text x="26" y="131.5">4</text>
+        </g>
+        <text class="t-plate" x="128" y="272" text-anchor="middle">front of the workplane</text>
+      </svg>
+      <ol>
+        <li><b>1</b><span>Body at an angle</span></li>
+        <li><b>2</b><span>Wheel standing on its edge</span></li>
+        <li><b>3</b><span>Parts touching</span></li>
+        <li><b>4</b><span>Hanging off the edge</span></li>
+      </ol>
+    </figure>
+
+    <figure class="plate good">
+      <div class="pv"><span class="mark" aria-hidden="true">✓</span> Knolled</div>
+      <svg viewBox="-12 -10 280 290" role="img" aria-label="A 256 mm workplane with the car body square at the back, nose to the right, and the four wheels in a straight row in front: the rear set, a wheel with its axle standing up and a push-on wheel, then the front set the same way">
+        <defs><pattern id="grid-b" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--grid)" stroke-width="0.6"/></pattern></defs>
+        <rect x="0" y="0" width="256" height="256" rx="3" fill="var(--plate)" stroke="var(--plate-edge)" stroke-width="1.5"/>
+        <rect x="0" y="0" width="256" height="256" rx="3" fill="url(#grid-b)"/>
+        <use href="#ex-top" transform="translate(128 72)" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.8"/>
+        <use href="#ex-wheel-fixed" transform="translate(62 152)"/>
+        <use href="#ex-wheel-push" transform="translate(96 152)"/>
+        <use href="#ex-wheel-fixed" transform="translate(160 152)"/>
+        <use href="#ex-wheel-push" transform="translate(194 152)"/>
+        <g class="t-plate" text-anchor="middle">
+          <text x="128" y="38">body at the back, nose to the right</text>
+          <path d="M50 168 V172 H108 V168 M148 168 V172 H206 V168" fill="none" stroke="var(--ink-3)" stroke-width="1"/>
+          <text x="79" y="184">rear set</text>
+          <text x="177" y="184">front set</text>
+          <text x="79" y="200">axle up · push-on</text>
+          <text x="177" y="200">axle up · push-on</text>
+        </g>
+        <path d="M74 136 H84 M74 133 V139 M84 133 V139" fill="none" stroke="var(--go)" stroke-width="1.2"/>
+        <text class="t-plate t-go" x="79" y="129" text-anchor="middle">10 mm</text>
+        <text class="t-plate" x="128" y="272" text-anchor="middle">front of the workplane</text>
+      </svg>
+      <figcaption>The example car on a 256 mm plate, to scale. The wheel with its axle stands on its outside face, axle pointing up.</figcaption>
+    </figure>
+  </div>
+
+  <h3 style="margin:0 0 10px;font-size:19px">The knolling rules</h3>
+  <div class="gridcards">
+    <div class="card"><h3>Plate-sized workplane</h3><p>Set the workplane to 256 × 256 mm, the size of our printer plates.</p><p class="tk">Tinkercad: Edit Grid</p></div>
+    <div class="card"><h3>Copy first</h3><p>Knoll a copy of your design, so your finished car stays in one piece.</p><p class="tk">Tinkercad: Duplicate, on your dashboard</p></div>
+    <div class="card"><h3>Flat side down</h3><p>Body on its underside. Wheels lying flat. A wheel with its axle stands on its outside face, axle up.</p><p class="tk">Tinkercad: Drop <kbd>D</kbd></p></div>
+    <div class="card"><h3>Square to the grid</h3><p>Turn parts in 90° steps only, so their edges line up with the grid.</p><p class="tk">Tinkercad: hold <kbd>Shift</kbd> while you rotate</p></div>
+    <div class="card"><h3>Like with like</h3><p>Body at the back. Wheels in a row in front, rear set then front set.</p><p class="tk">Tinkercad: Align <kbd>L</kbd></p></div>
+    <div class="card"><h3>Even gaps</h3><p>At least <strong>10 mm</strong> between parts and <strong>15 mm</strong> from the edges, so nothing touches.</p><p class="tk">Tinkercad: <kbd>Shift</kbd> + arrow moves 10 mm</p></div>
+  </div>
+
+  <div class="tnote-slot" data-note="p-fin-knoll-1"></div>
+</section>
+
+<section class="panel" role="tabpanel" data-slug="f6" id="p-fin-hand" data-lesson="F" data-label="Hand In" hidden>
+  <div class="st-head">
+    <div class="st-kicker"><span class="st-num">F6</span><span class="st-strand">Team deliverable</span></div>
+    <h2>Before You Hand It In</h2>
+    <p class="st-lede">Tick each one off, then export your file from Tinkercad. The ticks are saved on this device only.</p>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <div class="col-h">Race-ready</div>
+      <div class="checklist">
+        <button type="button" class="tick fcheck" id="fc-box" aria-pressed="false">Fits the 160 × 80 × 65 mm gauge box</button>
+        <button type="button" class="tick fcheck" id="fc-clear" aria-pressed="false">Body 5 mm above the ground</button>
+        <button type="button" class="tick fcheck" id="fc-hook" aria-pressed="false">3 mm tow hook under the front, on the centre line</button>
+        <button type="button" class="tick fcheck" id="fc-holes" aria-pressed="false">6 mm axle holes, level with the wheel centres</button>
+        <button type="button" class="tick fcheck" id="fc-bush" aria-pressed="false">Bushings on every hole, 1 mm from the wheels</button>
+        <button type="button" class="tick fcheck" id="fc-axles" aria-pressed="false">Each 5.5 mm axle joined to one wheel, with a push-on wheel for the other end</button>
+        <button type="button" class="tick fcheck" id="fc-wheels" aria-pressed="false">Wheels 20 mm or more across</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="col-h">Ready to print</div>
+      <div class="checklist">
+        <button type="button" class="tick fcheck" id="fc-copy" aria-pressed="false">A copy knolled, the finished car kept whole</button>
+        <button type="button" class="tick fcheck" id="fc-plate" aria-pressed="false">Workplane set to 256 × 256 mm</button>
+        <button type="button" class="tick fcheck" id="fc-all" aria-pressed="false">Every part on the workplane</button>
+        <button type="button" class="tick fcheck" id="fc-flat" aria-pressed="false">Flat sides down, axles standing up</button>
+        <button type="button" class="tick fcheck" id="fc-square" aria-pressed="false">Square to the grid: body at the back, wheels in front</button>
+        <button type="button" class="tick fcheck" id="fc-gaps" aria-pressed="false">10 mm gaps, 15 mm from the edges</button>
+        <button type="button" class="tick fcheck" id="fc-partner" aria-pressed="false">Checked by a partner: count the parts</button>
+        <button type="button" class="tick fcheck" id="fc-names" aria-pressed="false">Names and class cut into the underside, mirrored</button>
+        <button type="button" class="tick fcheck" id="fc-team" aria-pressed="false">Team name cut into a flat side</button>
+        <button type="button" class="tick fcheck" id="fc-stl" aria-pressed="false">Exported as .STL: Export → Everything in the design</button>
+        <button type="button" class="tick fcheck" id="fc-file" aria-pressed="false">File named Class - Team.stl, like 5X - Team Turbo.stl</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-go" type="button" id="printFinishBtn">Print the finishing guide</button>
+  </div>
+  <p class="mic"><span>We open your file in Bambu Studio and print it on our P2S, A1, P1S or X1 printers. They all have the same 256 × 256 mm plate.</span></p>
+
+  <div class="tnote-slot" data-note="p-fin-hand-1"></div>
+</section>
+
 </main>
 
 <footer>
-  <p>Band Car Grand Prix · Lessons 1 and 2 of 11 · Companion to the Band Car Formula regulations and the Issue 2 model brief.</p>
+  <p>Band Car Grand Prix · Lessons 1 and 2 of 11, and the final build · Companion to the Band Car Formula regulations and the Issue 2 model brief.</p>
   <p class="foot-2">Your answers are saved in this browser, on this device, and are sent nowhere. Copy or print the design sheet before you finish. · <a href="https://heutalab.com">HeutaLab</a></p>
 </footer>
 
@@ -1216,8 +1805,12 @@
     if(!opts.keepUrl) writeHash(id);
     if(!opts.keepScroll) window.scrollTo(0,0);
   }
+  function markLesson(l){
+    document.body.classList.toggle("now-f",l==="F");
+    document.body.classList.remove("print-all","print-research","print-finish");
+  }
   function showLesson(l){
-    currentLesson=l; state.__lesson=l; store();
+    currentLesson=l; state.__lesson=l; store(); markLesson(l);
     lessonBtns.forEach(function(b){ b.setAttribute("aria-selected", String(b.getAttribute("data-lesson")===l)); });
     var first=panels.filter(function(p){ return p.getAttribute("data-lesson")===l; })[0];
     showPanel(first.id);
@@ -1400,16 +1993,24 @@
     document.head.appendChild(s);
   }
 
-  function printScope(research){
-    document.body.classList.toggle("print-research",!!research);
+  /* Three scopes: "all" (lessons 1 and 2), "research" (lesson 1 answers) and
+     "finish" (the finishing guide). With no button pressed, the open lesson
+     decides: the finishing guide prints itself, anything else prints as before. */
+  function printScope(mode){
+    document.body.classList.toggle("print-all",mode==="all");
+    document.body.classList.toggle("print-research",mode==="research");
+    document.body.classList.toggle("print-finish",mode==="finish");
     syncPrint();
     window.print();
   }
-  document.getElementById("printBtn").addEventListener("click",function(){ printScope(false); });
-  document.getElementById("printResearchBtn").addEventListener("click",function(){ printScope(true); });
+  document.getElementById("printBtn").addEventListener("click",function(){ printScope("all"); });
+  document.getElementById("printResearchBtn").addEventListener("click",function(){ printScope("research"); });
+  var printFinishBtn=document.getElementById("printFinishBtn");
+  if(printFinishBtn) printFinishBtn.addEventListener("click",function(){ printScope("finish"); });
   /* Safari on iOS is unreliable about afterprint, so each button sets the scope
      explicitly rather than trusting this to have cleaned up. */
-  window.addEventListener("afterprint",function(){ document.body.classList.remove("print-research"); });
+  function clearPrintScope(){ document.body.classList.remove("print-all","print-research","print-finish"); }
+  window.addEventListener("afterprint",clearPrintScope);
 
   /* Erasing a team's whole lesson used to be one tap on a shared iPad. */
   var clearBtn=document.getElementById("clearBtn"), armed=false, at;
@@ -1520,7 +2121,7 @@
     catch(e){ location.hash=h; }
   }
   function selectLesson(l){
-    currentLesson=l; state.__lesson=l; store();
+    currentLesson=l; state.__lesson=l; store(); markLesson(l);
     lessonBtns.forEach(function(b){
       var on=b.getAttribute("data-lesson")===l;
       b.setAttribute("aria-selected",String(on)); b.tabIndex=on?0:-1;
@@ -1566,10 +2167,16 @@
     });
     var head=document.getElementById("printHead");
     if(head){
-      var nm=document.getElementById("t-name").value.trim()||"Unnamed team";
+      var named=document.getElementById("t-name").value.trim();
+      var nm=named||"Unnamed team";
       var cl=document.getElementById("t-class").value;
-      var scope=document.body.classList.contains("print-research") ? "Lesson 1 research" : "Lessons 1 and 2";
-      head.textContent="Band Car Grand Prix · "+nm+(cl?" · "+cl:"")+" · "+scope+" · "+new Date().toLocaleDateString("en-GB");
+      var bc=document.body.classList;
+      var scope=bc.contains("print-research") ? "Lesson 1 research"
+        : (bc.contains("print-finish") || (bc.contains("now-f") && !bc.contains("print-all"))) ? "Finishing guide"
+        : "Lessons 1 and 2";
+      /* a blank finishing guide is a class handout, so it carries no team */
+      var who=(scope==="Finishing guide"&&!named&&!cl) ? "" : nm+(cl?" · "+cl:"")+" · ";
+      head.textContent="Band Car Grand Prix · "+who+scope+" · "+new Date().toLocaleDateString("en-GB");
     }
   }
   window.addEventListener("beforeprint",syncPrint);
@@ -1595,6 +2202,57 @@
       navigator.serviceWorker.register("sw.js").catch(function(){});
     });
   }
+})();
+</script>
+<script>
+/* Final build: the "Work out your numbers" card on the Axles & Bushings tab.
+   The inputs are ordinary page fields, so the main script already saves,
+   restores, clears and print-mirrors them. This only does the arithmetic. */
+(function(){
+  "use strict";
+  var out=document.getElementById("finCalc"); if(!out) return;
+  var IDS=["f-wd","f-ww","f-bwf","f-bwr"];
+  function num(id){ var e=document.getElementById(id); if(!e) return null; var v=parseFloat(e.value); return isNaN(v)?null:v; }
+  function mm(v){ return (Math.round(v*10)/10)+" mm"; }
+  function row(cls,what,lim,val,verdict,why){
+    var el=document.createElement("div");
+    el.className="row "+cls;
+    el.innerHTML='<div><span class="what"></span><span class="lim"></span></div><div class="val"></div><div class="verdict"></div>'+(why?'<div class="why"></div>':'');
+    el.querySelector(".what").textContent=what;
+    el.querySelector(".lim").textContent=lim;
+    el.querySelector(".val").textContent=val;
+    el.querySelector(".verdict").textContent=verdict;
+    if(why) el.querySelector(".why").textContent=why;
+    out.appendChild(el);
+  }
+  function use(what,how,v){ if(v===null) row("todo",what,how,"—","Not yet"); else row("info",what,how,mm(v),"Use this"); }
+  function check(what,lim,v,ok,why){
+    if(v===null){ row("todo",what,lim,"—","Not yet"); return; }
+    row(ok?"pass":"fail",what,lim,mm(v),ok?"Pass":"Fail",ok?"":why);
+  }
+  function calc(){
+    var wd=num("f-wd"), ww=num("f-ww"), bf=num("f-bwf"), br=num("f-bwr");
+    out.innerHTML="";
+    check("Wheel size","20 mm or more across the tyre",wd,wd!==null&&wd>=20,
+      "Under 20 mm the bushing dips below the 5 mm line. Much smaller, and the axle hole breaks out of the bottom of the car. Make the wheels bigger.");
+    use("Axle height","Half the wheel size",wd===null?null:wd/2);
+    use("Raise the bushing to","Axle height − 5",wd===null?null:wd/2-5);
+    use("Raise the axle hole to","Axle height − 3",wd===null?null:wd/2-3);
+    use("Push-on wheel hole depth","Wheel width − 1",ww===null?null:ww-1);
+    [["Front",bf],["Rear",br]].forEach(function(a){
+      var bl=a[1]===null?null:a[1]+4;
+      use(a[0]+" bushing length","Body width + 4",bl);
+      use(a[0]+" axle, out of the fixed wheel","Bushing + 2 mm of gaps + push-on hole",(bl===null||ww===null)?null:bl+2+ww-1);
+      var across=(bl===null||ww===null)?null:bl+2+2*ww;
+      check(a[0]+" wheels, outside to outside","80 mm maximum",across,across!==null&&across<=80,
+        "Too wide. Make the body narrower where this axle goes through, or use thinner wheels.");
+    });
+  }
+  document.addEventListener("input",function(e){ if(IDS.indexOf(e.target.id)>=0) calc(); });
+  document.addEventListener("change",function(e){ if(IDS.indexOf(e.target.id)>=0) calc(); });
+  var clr=document.getElementById("clearBtn");
+  if(clr) clr.addEventListener("click",function(){ setTimeout(calc,0); });
+  calc();
 })();
 </script>
 

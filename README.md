@@ -27,6 +27,7 @@ Every section has its own URL, so a class can be sent straight to one tab:
 | `/#1-1` … `/#1-6` | Lesson 1: Your Team, The Rules, Air & the Body, Wings, Wheels & Grip, Homework |
 | `/#r1` … `/#r4` | Research Desk: Nose & Body, Rear Wing, Wheels & Tyres, How to Search |
 | `/#2-1` … `/#2-6` | Lesson 2: The Brief, Bodywork Bay, Aero Bay, Running Gear Bay, Scrutineering, Design Sheet |
+| `/#f1` … `/#f6` | Final build: The Final Rules, Axles & Bushings, Clearance & Hook, Names, Knolling, Hand In |
 
 The old section ids (`/#p-bay-run`) still work.
 
@@ -66,9 +67,13 @@ Two buttons, two scopes:
   take the strand they owned.
 - **Print**, on the Design Sheet, prints everything: lessons 1 and 2, sources
   included.
+- **Print the finishing guide**, on Hand In, prints the six final-build tabs
+  and nothing else. The browser's own print does the same while the Finish
+  the car lesson is open, so a teacher pressing Cmd+P there gets the guide.
+  The other two buttons leave the guide out.
 
-The Research Desk never prints. Both set their scope explicitly on every click
-(`body.print-research`) rather than trusting `afterprint`, which iOS Safari
+The Research Desk never prints. Every button sets its scope explicitly on every click
+(`body.print-all`, `body.print-research`, `body.print-finish`) rather than trusting `afterprint`, which iOS Safari
 does not reliably fire.
 
 Typed answers print in full because each field is mirrored into a plain block
@@ -105,6 +110,18 @@ it is the cache: hard-reload, or bump `VERSION` in `sw.js`.
 - **A new section** — give the `<section class="panel">` a `data-slug`, or its
   URL falls back to the element id.
 - **A teacher note** — it lives in `teacher-notes.js`, keyed `panelid-1`.
+
+## The final build
+
+The Finish the car lesson (`data-lesson="F"`, added 17 November 2026) takes a
+team's own Tinkercad car to a printable file: the final rules (160 × 80 × 65 mm,
+5 mm ground clearance, a 3 mm tow hook, 6 mm holes, 5.5 mm axles, bushings),
+then names, knolling and hand-in. Every drawing is one example car at 1 unit =
+1 mm, defined once in the hidden `<svg>` before the first F panel (`#ex-top`,
+`#ex-side`, the wheels). The "Work out your numbers" card is the small script
+after the main one; its inputs are ordinary fields, so saving, clearing and
+print mirroring come from the main script. The checklist uses `.tick`, saved
+the same way as the Research Desk ticks.
 
 ## Provenance
 
